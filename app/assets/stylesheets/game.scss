@@ -1,3 +1,70 @@
 // Place all the styles related to the game controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body {
+  background-color: #000;
+}
+#board {
+  width: 576px;  
+  height: 576px;
+  background-color: #eee;
+  clear: both;
+  border: 15px solid rgb(32,67,57);
+}
+
+.square {
+  width: 72px;
+  height: 72px;
+  float: left;
+  display: inline-block;
+  background-color: #eee;
+}
+
+.court-square {
+  background-color: rgb(32,67,57) !important;
+}
+
+.internal-square {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  transform: rotate(45deg);
+  background-color: rgb(207,185, 134);
+  border: 1px solid orange;
+  margin-top: 10px;
+  position: relative;
+  
+}
+
+.rank:last-child {
+  .square:last-child {
+    clear: right;
+  };
+};
+
+.piece {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+.red-piece {
+  .piece {
+    background-color: rgb(123,62,32);
+  }
+};
+
+
+.green-piece {
+  .piece {
+    background-color: rgb(43,59,53);
+  }
+};
+
