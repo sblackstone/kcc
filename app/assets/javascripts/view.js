@@ -14,10 +14,10 @@ class View {
   draw() {
     for (let i = 0; i < 64; i++) {
       this.elements.squares[i].removeClass('red-piece').removeClass('green-piece');
-      if (this.model.state.squares[i] == 1) {
+      if (this.model.square(i) == 1) {
         this.elements.squares[i].addClass('red-piece');
       }
-      if (this.model.state.squares[i] == 2) {
+      if (this.model.square(i) == 2) {
         this.elements.squares[i].addClass('green-piece');
       }      
     }
