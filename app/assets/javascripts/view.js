@@ -15,13 +15,12 @@ class View {
   draw() {
     for (let i = 0; i < 64; i++) {
       this.elements.squares[i].removeClass('red-piece').removeClass('green-piece');
-      if (this.model.state[i] == 1) {
+      if (this.model.state.squares[i] == 1) {
         this.elements.squares[i].addClass('red-piece');
       }
-      if (this.model.state[i] == 2) {
+      if (this.model.state.squares[i] == 2) {
         this.elements.squares[i].addClass('green-piece');
-      }
-      
+      }      
     }
   }
 
@@ -34,7 +33,7 @@ class View {
         let internal_square = $('<div>').addClass('internal-square').appendTo(square);      
         let piece = $('<div>').addClass('piece').appendTo(internal_square);
         this.elements.squares[square_number] = square;
-        if ([18,19,20,21,26,27,28,29,34,35,36,37,42,43,44,45].indexOf(square_number) > -1) {
+        if (this.model.is_court_square(square_number)) {
           square.addClass('court-square');
         }  
         square.appendTo(rank);      
