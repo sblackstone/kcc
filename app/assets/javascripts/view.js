@@ -23,12 +23,16 @@ class View {
     }
   }
 
+  highlight_square(square_number) {
+    this.elements.squares[square_number].addClass('highlight');
+  }
+ 
   init_squares() {
     for (let i = 0; i < 8; i++) {
       let rank = $('<div>').addClass('rank');
       for (let j = 0; j < 8; j++) {
         let square_number = i*8 + j;
-        let square = $('<div>').addClass('square').data("data-square", square_number);
+        let square = $('<div>').addClass('square').data("square", square_number);
         let internal_square = $('<div>').html(square_number).addClass('internal-square').appendTo(square);      
         let piece = $('<div>').addClass('piece').appendTo(internal_square);
         this.elements.squares[square_number] = square;
