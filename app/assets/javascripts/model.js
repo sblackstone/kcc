@@ -9,6 +9,10 @@ class Model {
     return(this._state.turn);
   }
   
+  empty(i) {
+    return this.square(i) === 0;
+  }
+  
   square(i) {
     return this._state.squares[i];
   }
