@@ -1,0 +1,54 @@
+html, body {
+  background-color: #000; }
+
+#board {
+  width: 606px;
+  height: 606px;
+  background-color: #eee;
+  clear: both;
+  margin: 0 auto;
+  border: 15px solid #204339; }
+
+.square {
+  width: 72px;
+  height: 72px;
+  float: left;
+  display: inline-block;
+  background-color: #eee; }
+
+.highlight .internal-square {
+  background-color: yellow !important; }
+
+.court-square {
+  background-color: #204339 !important; }
+
+.internal-square {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  transform: rotate(45deg);
+  background-color: #cfb986;
+  border: 1px solid orange;
+  margin-top: 10px;
+  position: relative; }
+
+.rank:last-child .square:last-child {
+  clear: right; }
+
+.piece {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block; }
+
+.red-piece .piece {
+  background-color: #7b3e20; }
+
+.green-piece .piece {
+  background-color: #2b3b35; }
+
+/*# sourceMappingURL=game.css.map */
