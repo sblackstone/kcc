@@ -2,14 +2,23 @@ class Model {
   constructor() {    
     console.log("Initializing Model");
     this.initialize_state();
-    this.view = new View(this);    
+    this.view = new View(this);   
+    window.model = this; 
   }
   
   turn() {
     return(this._state.turn);
   }
   
-  empty(i) {
+  other_team() {
+    return this.turn() == 1 ? 2 : 1;
+  }
+  
+  is_enemy(i) {
+    return this.square(i) == this.other_team();
+  }
+  
+  is_empty(i) {
     return this.square(i) === 0;
   }
   
