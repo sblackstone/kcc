@@ -10,6 +10,10 @@ class Model {
     return(this._state.turn);
   }
   
+  set_square(i, val) {
+    this._state.squares[i] = val;
+  }
+  
   other_team() {
     return this.turn() == 1 ? 2 : 1;
   }

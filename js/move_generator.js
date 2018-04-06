@@ -23,11 +23,14 @@ class MoveGenerator {
     });
   }
   
+  // Jumped is an array of previously jumped squares..
   add_jump_moves(root, src, jumped, last_source) {
     this.jump_moves[src].forEach((dst)=> {
       let js = this.jumped_square(src,dst);
-      if (this.model.is_empty(dst) && this.model.is_enemy(js) && jumped.indexOf(js) == -1) {
-        jumped.push(js);
+      if (this.model.is_empty(dst) && !this.model.is_empty(js) && jumped.indexOf(js) == -1 && dst != last_source) {
+        if (this.model.is_enemy(js)) {
+          jumped.push(js);          
+        }
         if (last_source === undefined) {
           root[src]      = root[src] || {};
           root[src][dst] = {}          
@@ -36,7 +39,9 @@ class MoveGenerator {
           root[dst] = {};
           this.add_jump_moves(root[dst], dst, jumped, src);
         }
-        jumped.pop();
+        if (this.model.is_enemy(js)) {
+          jumped.pop();          
+        }
       }
     });    
   }
