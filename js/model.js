@@ -3,7 +3,7 @@ class Model {
     console.log("Initializing Model");
     this.initialize_state();
     this.view           = new View(this);   
-    this.move_generator = new MoveGenerator(this.model);
+    this.move_generator = new MoveGenerator(this);
     
     window.model = this; 
   }
