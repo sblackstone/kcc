@@ -11,7 +11,17 @@ const MoveGenerator = function(model) {
 
 
 MoveGenerator.prototype.is_legal_piece_move = function(src, dst) {
-  return(true);
+  let moves = this.legal_moves();
+  if (moves[src] == undefined) {
+    return false;
+  }
+  return(moves[src][dst] !== undefined);
+};
+
+
+MoveGenerator.prototype.is_jump_move = function(src,dst) {
+  let delta = Math.abs(dst - src);
+  return(delta == 16 || delta == 2);
 };
 
 MoveGenerator.prototype.jumped_square = function(src, dst) {
