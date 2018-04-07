@@ -1,103 +1,131 @@
-class Model {
-  constructor() {    
-    console.log("Initializing Model");
-    this.initialize_state();
-    this.view           = new View(this);   
-    this.move_generator = new MoveGenerator(this);
-    
-    window.model = this; 
+const Model = function() {
+  console.log("Initializing Model");
+  this.initialize_state();
+  this.view           = new View(this);   
+  this.move_generator = new MoveGenerator(this);
+  
+  window.model = this;   
+};
+
+
+Model.prototype.handle_first_human_move = function(i) {
+  if (this.square(i) !== this.human_team()) {
+    alert("You must start with one of your piecees");
+  } else {
+    this._state.uncommited_move.push(i);
+    this.view.highlight_square(i);  
   }
-      
-  handle_first_human_move(i) {
-    if (this.square(i) !== this.human_team()) {
-      alert("You must start with one of your piecees");
-    } else {
-      this._state.uncommited_move.push(i);
-      this.view.highlight_square(i);  
+  return;      
+};
+
+
+Model.prototype.handle_nth_human_move = function(dst) {
+  let src = this._state.uncommited_move[this._state.uncommited_move.length - 1];
+  
+  if (this.move_generator.is_legal_piece_move(src, dst)) {
+    this.move_piece(src, dst);
+
+    if (this.move_generator.is_jump_move(src,dst)) {
+      this._state.uncommited_move.push(-1);
+      let jumped = this.move_generator.jumped_square(src,dst);
+      if (this.is_enemy(jumped)) {
+        this.set_square(jumped, 0);          
+      };                
+      console.log(`Jumping ${jumped}`);
     }
-    return;    
+    this._state.uncommited_move.push(dst);
+  } else {
+    alert("Not a legal move");
   }
   
-  
-    
-  handle_nth_human_move(dst) {
-    
-  }
-      
-  add_to_human_move(i) {
-    
-    if (!this.is_human_turn()) {
-      alert("Its not your turn");
-      return;
-    }
-        
-    if (this.is_start_of_turn()) {
-      this.handle_first_human_move(i);
-    } else {
-      this.handle_nth_human_move(i);
-    }
+  this.view.draw();
+  console.log(src)  
+};
+
+Model.prototype.add_to_human_move = function(i) {
+  if (!this.is_human_turn()) {
+    alert("Its not your turn");
     return;
   }
-  
-  subtract_from_human_move() {
-    
+      
+  if (this.is_start_of_turn()) {
+    this.handle_first_human_move(i);
+  } else {
+    this.handle_nth_human_move(i);
   }
-  
-  is_start_of_turn() {
-    return(this._state.uncommited_move.length === 0);
-  }
-  
-  is_human_turn() {
-    return(this.turn() === this.human_team());
-  }
-  
-  human_team() {
-    return(this._state.human_team);
-  }
-  
-  turn() {
-    return(this._state.turn);
-  }
-  
-  set_square(i, val) {
-    this._state.squares[i] = val;
-  }
-  
-  other_team() {
-    return this.turn() == 1 ? 2 : 1;
-  }
-  
-  is_enemy(i) {
-    return this.square(i) == this.other_team();
-  }
-  
-  is_empty(i) {
-    return this.square(i) === 0;
-  }
-  
-  square(i) {
-    return this._state.squares[i];
-  }
-  
-  is_court_square(square_number) {
-    return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0][square_number]
-  } 
-  
-  initialize_state() {
-    this._state                 = {};
-    this._state.moves           = [];
-    this._state.human_team      = 1;
-    this._state.turn            = 1;
-    this._state.uncommited_move = [];
-    this._state.squares         = [ 1, 2, 1, 2, 1, 2, 1, 2,
-                                    2, 1, 2, 1, 2, 1, 2, 1, 
-                                    1, 2, 0, 0, 0, 0, 1, 2,
-                                    2, 1, 0, 0, 0, 0, 2, 1, 
-                                    1, 2, 0, 0, 0, 0, 1, 2,
-                                    2, 1, 0, 0, 0, 0, 2, 1, 
-                                    1, 2, 1, 2, 1, 2, 1, 2,
-                                    2, 1, 2, 1, 2, 1, 2, 1,     
-                                  ];
-  }
-  
+  return;
 };
+
+Model.prototype.uncommitted_move = function() {
+  return(this._state.uncommited_move);
+};
+
+Model.prototype.is_start_of_turn = function() {
+  return(this._state.uncommited_move.length === 0);  
+};
+
+Model.prototype.is_first_piece_destination = function() {
+  return(this._state.uncommited_move.length === 1);  
+};
+
+Model.prototype.is_human_turn = function() {
+  return(this.turn() === this.human_team());
+};
+
+Model.prototype.human_team = function() {
+  return(this._state.human_team);  
+};
+
+Model.prototype.turn = function() {
+  return(this._state.turn);
+};
+
+Model.prototype.set_square = function(i, val) {
+  this._state.squares[i] = val;  
+};
+
+Model.prototype.move_piece = function(src,dst) {
+  this.set_square(dst, this.square(src));    
+  this.set_square(src, 0);  
+}
+
+Model.prototype.other_team = function() {
+  return this.turn() == 1 ? 2 : 1;  
+};
+
+Model.prototype.is_enemy = function(i) {
+  return this.square(i) == this.other_team();  
+};
+
+Model.prototype.is_empty = function(i) {
+  return this.square(i) === 0;
+};
+
+Model.prototype.square = function(i) {
+  return this._state.squares[i];  
+};
+
+Model.prototype.is_court_square = function(i) {
+  return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0][i];
+};
+
+Model.prototype.initialize_state = function() {
+  this._state                 = {};
+  this._state.moves           = [];
+  this._state.human_team      = 1;
+  this._state.turn            = 1;
+  this._state.uncommited_move = [];
+  this._state.squares         = [ 1, 2, 1, 2, 1, 2, 1, 2,
+                                  2, 1, 2, 1, 2, 1, 2, 1, 
+                                  1, 2, 0, 0, 0, 0, 1, 2,
+                                  2, 1, 0, 0, 0, 0, 2, 1, 
+                                  1, 2, 0, 0, 0, 0, 1, 2,
+                                  2, 1, 0, 0, 0, 0, 2, 1, 
+                                  1, 2, 1, 2, 1, 2, 1, 2,
+                                  2, 1, 2, 1, 2, 1, 2, 1,     
+                                ];  
+                                
+  // DEBUG MODE
+  this.set_square(26, 2);
+};
+

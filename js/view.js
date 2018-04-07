@@ -11,6 +11,11 @@ const View = function(model) {
 }
 
 View.prototype.draw = function() { 
+  this.draw_board();
+  this.draw_current_move();
+};
+
+View.prototype.draw_board = function() {
   for (let i = 0; i < 64; i++) {
     this.elements.squares[i].removeClass('red-piece').removeClass('green-piece');
     if (this.model.square(i) == 1) {
@@ -19,7 +24,11 @@ View.prototype.draw = function() {
     if (this.model.square(i) == 2) {
       this.elements.squares[i].addClass('green-piece');
     }      
-  }  
+  }    
+};
+
+View.prototype.draw_current_move = function() {
+  $('#current-move').html(JSON.stringify(this.model.uncommitted_move()));
 };
 
 View.prototype.highlight_square = function(i) {

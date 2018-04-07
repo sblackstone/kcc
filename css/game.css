@@ -4,9 +4,8 @@ html, body {
 #board {
   width: 606px;
   height: 606px;
-  background: url(/img/marble.jpg) top left;
+  background-color: #eee;
   clear: both;
-  margin: 0 auto;
   border: 15px solid #204339; }
 
 .square {
@@ -14,9 +13,7 @@ html, body {
   height: 72px;
   float: left;
   display: inline-block;
-  background-color: transparent;
-
- }
+  background-color: #eee; }
 
 .highlight .internal-square {
   background-color: yellow !important; }
@@ -25,7 +22,6 @@ html, body {
   background-color: #204339 !important; }
 
 .internal-square {
-  font-size: 11px;
   margin: 0 auto;
   width: 50px;
   height: 50px;
@@ -33,7 +29,8 @@ html, body {
   background-color: #cfb986;
   border: 1px solid orange;
   margin-top: 10px;
-  position: relative; }
+  position: relative;
+  font-size: 11px; }
 
 .rank:last-child .square:last-child {
   clear: right; }
@@ -53,5 +50,9 @@ html, body {
 
 .green-piece .piece {
   background-color: #2b3b35; }
+
+#current-move {
+  color: #fff;
+  padding: 15px; }
 
 /*# sourceMappingURL=game.css.map */
