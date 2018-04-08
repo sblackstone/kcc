@@ -16,6 +16,10 @@ Controller.prototype.init_handlers = function() {
     this.model.handle_human_uncommitted_undo();  
   });
   
+  $('#commit-move-button').on("click", (o)=> {
+    this.model.human_commit_move();
+  });
+  
 };
 
 

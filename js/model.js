@@ -61,6 +61,22 @@ Model.prototype.add_to_human_move = function(i) {
   return;
 };
 
+Model.prototype.make_computer_move = function() {
+  console.log("make computer move");
+};
+
+Model.prototype.human_commit_move = function() {
+  let move = this.uncommitted_move();
+  if (move.length < 2) {
+    this.set_error("You need to make a move first");
+    this.view.draw();
+    return
+  };
+  
+  this.push_move();
+  this.make_computer_move();
+};
+
 Model.prototype.uncommitted_move = function() {
   return(this._state.uncommitted_move);
 };
