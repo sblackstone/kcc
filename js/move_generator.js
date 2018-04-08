@@ -12,10 +12,7 @@ const MoveGenerator = function(model) {
 
 MoveGenerator.prototype.is_legal_piece_move = function(src, dst) {
   let moves = this.legal_moves();
-  if (moves[src] == undefined) {
-    return false;
-  }
-  return(moves[src][dst] !== undefined);
+  return(moves.indexOf(dst) > -1);
 };
 
 
@@ -28,51 +25,57 @@ MoveGenerator.prototype.jumped_square = function(src, dst) {
   return src + ((dst - src) / 2);  
 };
 
-MoveGenerator.prototype.add_slide_moves = function(root, src) {
+MoveGenerator.prototype.add_slide_moves = function(moves, src) {
   this.slide_moves[src].forEach((dst) => {
     if (this.model.is_empty(dst)) {
-      root[src]      = root[src] || {};
-      root[src][dst] = null;
+      moves.push(dst);
     } 
   });  
 };
 
-
-// Jumped is an array of previously jumped squares..
-MoveGenerator.prototype.add_jump_moves = function(root, src, jumped, last_source)  {
+MoveGenerator.prototype.add_jump_moves = function(moves, src)  {
   this.jump_moves[src].forEach((dst)=> {
-    let js = this.jumped_square(src,dst);
-    if (this.model.is_empty(dst) && !this.model.is_empty(js) && jumped.indexOf(js) == -1 && dst != last_source) {
-      if (this.model.is_enemy(js)) {
-        jumped.push(js);          
-      }
-      if (last_source === undefined) {
-        root[src]      = root[src] || {};
-        root[src][dst] = {}          
-        this.add_jump_moves(root[src][dst], dst, jumped, src);
-      } else {
-        root[dst] = {};
-        this.add_jump_moves(root[dst], dst, jumped, src);
-      }
-      if (this.model.is_enemy(js)) {
-        jumped.pop();          
-      }
+    if (this.model.is_start_of_turn() || src == this.model.last_uncommitted_dst()) {
+      let js = this.jumped_square(src,dst);
+      if (this.model.is_empty(dst) && !this.model.is_empty(js)) {
+        moves.push(dst);        
+      }      
     }
   });      
+}  
+
+MoveGenerator.prototype.legal_first_moves = function() {
+  const moves = [];
+  for (let i = 0; i < 64; i++) {
+    if (this.model.square(i) == this.model.turn()) {
+      moves.push(i);
+    }
+  }  
+  return(moves);
+};
+
+MoveGenerator.prototype.legal_followup_moves = function() {
+  const moves = [];
+  const src = this.model.last_uncommitted_dst();
+  if (this.model.is_first_piece_destination()) {
+    this.add_slide_moves(moves, src);        
+  }
+
+  this.add_jump_moves(moves, src);
+  return(moves);  
 };
 
 
 MoveGenerator.prototype.legal_moves = function() {
-  const root = {};
-  const is_first_piece_destination = this.model.is_first_piece_destination();
-  for (let i = 0; i < 64; i++) {
-    if (this.model.square(i) == this.model.turn()) {
-      if (is_first_piece_destination) {
-        this.add_slide_moves(root, i);        
-      }
-      this.add_jump_moves(root, i, []);
-    };
-  };
-  return(root);  
+  return this.model.is_start_of_turn() ? this.legal_first_moves() : this.legal_followup_moves();
 };
+
+
+
+
+
+
+
+
+
 

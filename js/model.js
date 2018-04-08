@@ -21,25 +21,14 @@ Model.prototype.handle_first_human_move = function(i) {
 
 Model.prototype.handle_nth_human_move = function(dst) {
   let src = this.last_uncommitted_dst();
-  
   if (this.move_generator.is_legal_piece_move(src, dst)) {
-    this.move_piece(src, dst);
-
-    if (this.move_generator.is_jump_move(src,dst)) {
-      this._state.uncommited_move.push(-1);
-      let jumped = this.move_generator.jumped_square(src,dst);
-      if (this.is_enemy(jumped)) {
-        this.set_square(jumped, 0);          
-      };                
-    }
-    this._state.uncommited_move.push(dst);
+    this.push_uncommitted_move(dst);
   } else {
     alert("Not a legal move");
-  }
-  
+  }  
   this.view.draw();
-  console.log(src)  
 };
+
 
 Model.prototype.add_to_human_move = function(i) {
   if (!this.is_human_turn()) {
@@ -67,28 +56,56 @@ Model.prototype.is_first_piece_destination = function() {
   return(this._state.uncommited_move.length === 1);  
 };
 
-Model.prototype.is_human_turn = function() {
-  return(this.turn() === this.human_team());
-};
-
 Model.prototype.last_uncommitted_dst = function() {
   return(this._state.uncommited_move[this._state.uncommited_move.length - 1]);
 };
 
 
+
+
+Model.prototype.push_uncommitted_move = function(dst) {
+  let src = this.last_uncommitted_dst();
+  this.move_piece(src, dst);
+
+  if (this.move_generator.is_jump_move(src,dst)) {
+    this._state.uncommited_move.push(-1);
+    let jumped = this.move_generator.jumped_square(src,dst);
+    if (this.is_enemy(jumped)) {
+      this.set_square(jumped, 0);          
+    };                
+  }
+  this._state.uncommited_move.push(dst);  
+};
+
+Model.prototype.pop_uncommitted_move = function() {
+  let last_dst = this._state.uncommited_move.pop();
+  let enemy_jump_move = false;
+
+  if (last_dst === undefined) {
+    console.log("Warning: tried to pop empty uncommited move");
+    return;
+  };
+
+  if (this.last_uncommitted_dst() === -1) {
+    this._state.uncommited_move.pop();
+    enemy_jump_move = true;    
+  }
+  
+  let last_src = this._state.uncommited_move.pop();
+
+  this.move_piece(last_dst, last_src);
+
+  if (this.move_generator.is_jump_move(last_dst,last_src) && enemy_jump_move) {
+    let jumped = this.move_generator.jumped_square(last_dst,last_src);
+    this.set_square(jumped, this.other_team());          
+  }
+  
+  // DEBUG LINE.
+  this.view.draw();
+  
+};
+
 // Accessors
-
-Model.prototype.human_team = function() {
-  return(this._state.human_team);  
-};
-
-Model.prototype.turn = function() {
-  return(this._state.turn);
-};
-
-Model.prototype.set_square = function(i, val) {
-  this._state.squares[i] = val;  
-};
 
 Model.prototype.move_piece = function(src,dst) {
   this.set_square(dst, this.square(src));    
@@ -105,6 +122,25 @@ Model.prototype.is_enemy = function(i) {
 
 Model.prototype.is_empty = function(i) {
   return this.square(i) === 0;
+};
+
+Model.prototype.is_human_turn = function() {
+  return(this.turn() === this.human_team());
+};
+
+
+// Primatives.
+
+Model.prototype.human_team = function() {
+  return(this._state.human_team);  
+};
+
+Model.prototype.turn = function() {
+  return(this._state.turn);
+};
+
+Model.prototype.set_square = function(i, val) {
+  this._state.squares[i] = val;  
 };
 
 Model.prototype.square = function(i) {
@@ -133,6 +169,6 @@ Model.prototype.initialize_state = function() {
                                 
   // DEBUG MODE
   this.set_square(19, 1);
-  this.set_square(26, 2);
+  this.set_square(27, 2);
 };
 
