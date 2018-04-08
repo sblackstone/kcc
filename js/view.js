@@ -5,6 +5,8 @@ const View = function(model) {
   this.elements = {};
   this.elements.root = $('#root');
   this.elements.board = $('#board');    
+  this.elements.errors = $('#error-messages');
+  this.elements.current_move = $('#current-move');
   this.elements.squares = [];
   this.init_squares();
   this.draw();  
@@ -29,15 +31,15 @@ View.prototype.draw_board = function() {
 };
 
 View.prototype.draw_errors = function() {
-  $('#error-messages').html("");
+  this.elements.errors.html("");
   let error = this.model.fetch_and_clear_error_message();
   if (error !== null) {
-    $('<li>').html(error).appendTo('#error-messages');    
+    $('<li>').html(error).appendTo(this.elements.errors);    
   }
 };
 
 View.prototype.draw_current_move = function() {
-  $('#current-move').html(JSON.stringify(this.model.uncommitted_move()));
+  this.elements.current_move.html(JSON.stringify(this.model.uncommitted_move()));
   $('.highlight').removeClass('highlight');
   $('.highlight-legal-move').removeClass('highlight-legal-move');
   
