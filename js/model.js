@@ -20,7 +20,7 @@ Model.prototype.handle_first_human_move = function(i) {
 
 
 Model.prototype.handle_nth_human_move = function(dst) {
-  let src = this._state.uncommited_move[this._state.uncommited_move.length - 1];
+  let src = this.last_uncommitted_dst();
   
   if (this.move_generator.is_legal_piece_move(src, dst)) {
     this.move_piece(src, dst);
@@ -31,7 +31,6 @@ Model.prototype.handle_nth_human_move = function(dst) {
       if (this.is_enemy(jumped)) {
         this.set_square(jumped, 0);          
       };                
-      console.log(`Jumping ${jumped}`);
     }
     this._state.uncommited_move.push(dst);
   } else {
@@ -71,6 +70,13 @@ Model.prototype.is_first_piece_destination = function() {
 Model.prototype.is_human_turn = function() {
   return(this.turn() === this.human_team());
 };
+
+Model.prototype.last_uncommitted_dst = function() {
+  return(this._state.uncommited_move[this._state.uncommited_move.length - 1]);
+};
+
+
+// Accessors
 
 Model.prototype.human_team = function() {
   return(this._state.human_team);  
@@ -126,6 +132,7 @@ Model.prototype.initialize_state = function() {
                                 ];  
                                 
   // DEBUG MODE
+  this.set_square(19, 1);
   this.set_square(26, 2);
 };
 
