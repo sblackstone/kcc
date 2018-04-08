@@ -77,7 +77,28 @@ Model.prototype.last_uncommitted_dst = function() {
   return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
 };
 
+Model.prototype.winner = function() {
+  if (this.is_early_game()) {
+    return(0);
+  }
 
+  // temp algo - need to do this better than this...
+
+  counts = [0, 0, 0]
+  for (i = 0; i < 64; i++) {
+    counts[this.square(i)] += 1;
+  }
+  if (counts[1] == 0) {
+    return(2);
+  }
+  if (counts[2] == 0) {
+    return(1);
+  }
+  
+  return(0);
+
+
+}
 
 
 Model.prototype.push_uncommitted_move = function(dst) {
@@ -201,6 +222,10 @@ Model.prototype.is_court_square = function(i) {
   return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0][i];
 };
 
+Model.prototype.is_early_game = function() {
+  return(this._state.committed_moves.length < 2);
+};
+
 Model.prototype.initialize_state = function() {
   this._state                  = {};
   this._state.moves            = [];
@@ -208,7 +233,7 @@ Model.prototype.initialize_state = function() {
   this._state.turn             = 1;
   this._state.uncommitted_move = [];
   this._state.committed_moves  = [];
-
+  this._state.error_message    = null;
   this._state.squares          = [ 1, 2, 1, 2, 1, 2, 1, 2,
                                    2, 1, 2, 1, 2, 1, 2, 1, 
                                    1, 2, 0, 0, 0, 0, 1, 2,
@@ -218,7 +243,6 @@ Model.prototype.initialize_state = function() {
                                    1, 2, 1, 2, 1, 2, 1, 2,
                                    2, 1, 2, 1, 2, 1, 2, 1,     
                                  ];  
-  this._state.error_message    = null;
                                 
   // DEBUG MODE
   this.set_square(19, 1);
