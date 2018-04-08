@@ -84,9 +84,9 @@ Model.prototype.push_uncommitted_move = function(dst) {
   this.move_piece(src, dst);
 
   if (this.move_generator.is_jump_move(src,dst)) {
-    this._state.uncommited_move.push(-1);
     let jumped = this.move_generator.jumped_square(src,dst);
     if (this.is_enemy(jumped)) {
+      this._state.uncommited_move.push(-1);
       this.set_square(jumped, 0);          
     };                
   }

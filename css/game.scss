@@ -5,10 +5,11 @@
 html, body {
   background-color: #000;
 }
+
 #board {
   width: 606px;  
   height: 606px;
-  background-color: #eee;
+  background: url('/img/marble.jpg') top left no-repeat;
   clear: both;
   border: 15px solid rgb(32,67,57);
 }
@@ -18,7 +19,6 @@ html, body {
   height: 72px;
   float: left;
   display: inline-block;
-  background-color: #eee;
 }
 
 .highlight .internal-square {

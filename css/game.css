@@ -4,7 +4,7 @@ html, body {
 #board {
   width: 606px;
   height: 606px;
-  background-color: #eee;
+  background: url("/img/marble.jpg") top left no-repeat;
   clear: both;
   border: 15px solid #204339; }
 
@@ -12,8 +12,7 @@ html, body {
   width: 72px;
   height: 72px;
   float: left;
-  display: inline-block;
-  background-color: #eee; }
+  display: inline-block; }
 
 .highlight .internal-square {
   background-color: yellow !important; }
