@@ -83,6 +83,7 @@ Model.prototype.winner = function() {
   }
 
   // temp algo - need to do this better than this...
+  // TODO: test me..
 
   counts = [0, 0, 0]
   for (i = 0; i < 64; i++) {
@@ -97,8 +98,7 @@ Model.prototype.winner = function() {
   
   return(0);
 
-
-}
+};
 
 
 Model.prototype.push_uncommitted_move = function(dst) {
