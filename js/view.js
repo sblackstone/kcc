@@ -10,7 +10,7 @@ const View = function(model) {
   this.elements.squares = [];
   this.init_squares();
   this.draw();  
-}
+};
 
 View.prototype.draw = function() { 
   this.draw_board();

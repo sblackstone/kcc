@@ -42,7 +42,7 @@ MoveGenerator.prototype.add_jump_moves = function(moves, src)  {
       }      
     }
   });      
-}  
+};  
 
 MoveGenerator.prototype.legal_first_moves = function() {
   const moves = [];

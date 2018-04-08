@@ -85,7 +85,8 @@ Model.prototype.winner = function() {
   // temp algo - need to do this better than this...
   // TODO: test me..
 
-  counts = [0, 0, 0]
+  counts = [0, 0, 0];
+  
   for (i = 0; i < 64; i++) {
     counts[this.square(i)] += 1;
   }
@@ -110,7 +111,7 @@ Model.prototype.push_uncommitted_move = function(dst) {
     if (this.is_enemy(jumped)) {
       this._state.uncommitted_move.push(-1);
       this.set_square(jumped, 0);          
-    };                
+    }
   }
   this._state.uncommitted_move.push(dst);  
 };
@@ -122,7 +123,7 @@ Model.prototype.pop_uncommitted_move = function() {
   if (last_dst === undefined) {
     console.log("Warning: tried to pop empty uncommitted move");
     return;
-  };
+  }
 
   if (this.is_start_of_turn()) {
     return;
@@ -171,7 +172,7 @@ Model.prototype.pop_move = function() {
 Model.prototype.move_piece = function(src,dst) {
   this.set_square(dst, this.square(src));    
   this.set_square(src, 0);  
-}
+};
 
 Model.prototype.other_team = function() {
   return this.turn() == 1 ? 2 : 1;  
