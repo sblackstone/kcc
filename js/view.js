@@ -29,11 +29,35 @@ View.prototype.draw_board = function() {
 
 View.prototype.draw_current_move = function() {
   $('#current-move').html(JSON.stringify(this.model.uncommitted_move()));
+  $('.highlight').removeClass('highlight');
+  $('.highlight-legal-move').removeClass('highlight-legal-move');
+  
+  let moves = this.model.uncommitted_move();
+  moves.forEach((i)=> {
+    if (i >= 0) {
+      this.highlight_square(i);      
+    }
+  });
+  
+  if (!this.model.is_start_of_turn()) {
+    let legal_moves = this.model.move_generator.legal_moves();
+    legal_moves.forEach((i)=> {
+      this.highlight_legal_move(i);    
+    });    
+  }
+  
 };
 
 View.prototype.highlight_square = function(i) {
+  console.log(`Highlighting ${i}`);
   this.elements.squares[i].addClass('highlight');  
 };
+
+View.prototype.highlight_legal_move = function(i) {
+  console.log(`Highlighting Legal Move ${i}`);
+  this.elements.squares[i].addClass('highlight-legal-move');  
+};
+
 
 View.prototype.init_squares = function() {
   for (let i = 0; i < 8; i++) {

@@ -11,6 +11,11 @@ Controller.prototype.init_handlers = function() {
     this.model.add_to_human_move(square_number);
     console.log(square_number);
   });
+  
+  $('#undo-button').on("click", (o)=> {
+    this.model.handle_human_uncommitted_undo();  
+  });
+  
 };
 
 

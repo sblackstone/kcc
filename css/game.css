@@ -18,6 +18,9 @@ html, body {
 .highlight .internal-square {
   background-color: yellow !important; }
 
+.highlight-legal-move .internal-square {
+  background-color: purple !important; }
+
 .court-square {
   background-color: #204339 !important; }
 

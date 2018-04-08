@@ -1,8 +1,8 @@
 const Model = function() {
   console.log("Initializing Model");
   this.initialize_state();
-  this.view           = new View(this);   
   this.move_generator = new MoveGenerator(this);
+  this.view           = new View(this);   
   
   window.model = this;   
 };
@@ -15,6 +15,7 @@ Model.prototype.handle_first_human_move = function(i) {
     this._state.uncommited_move.push(i);
     this.view.highlight_square(i);  
   }
+  this.view.draw();
   return;      
 };
 
@@ -27,6 +28,21 @@ Model.prototype.handle_nth_human_move = function(dst) {
     alert("Not a legal move");
   }  
   this.view.draw();
+};
+
+Model.prototype.handle_human_uncommitted_undo = function() {
+  if (!this.is_human_turn()) {
+    alert("Its not your turn");
+    return;
+  }
+  
+  if (this.is_start_of_turn()) {
+    alert("Nothing to take back");
+    return;
+  }
+  this.pop_uncommitted_move();
+  this.view.draw();
+  
 };
 
 
@@ -86,12 +102,16 @@ Model.prototype.pop_uncommitted_move = function() {
     return;
   };
 
+  if (this.is_start_of_turn()) {
+    return;
+  }
+
   if (this.last_uncommitted_dst() === -1) {
     this._state.uncommited_move.pop();
     enemy_jump_move = true;    
   }
   
-  let last_src = this._state.uncommited_move.pop();
+  let last_src = this.last_uncommitted_dst();
 
   this.move_piece(last_dst, last_src);
 
@@ -99,10 +119,7 @@ Model.prototype.pop_uncommitted_move = function() {
     let jumped = this.move_generator.jumped_square(last_dst,last_src);
     this.set_square(jumped, this.other_team());          
   }
-  
-  // DEBUG LINE.
-  this.view.draw();
-  
+    
 };
 
 // Accessors
@@ -170,5 +187,7 @@ Model.prototype.initialize_state = function() {
   // DEBUG MODE
   this.set_square(19, 1);
   this.set_square(27, 2);
+  this.set_square(26, 2);
+
 };
 
