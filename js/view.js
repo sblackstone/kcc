@@ -13,6 +13,7 @@ const View = function(model) {
 View.prototype.draw = function() { 
   this.draw_board();
   this.draw_current_move();
+  this.draw_errors();
 };
 
 View.prototype.draw_board = function() {
@@ -25,6 +26,14 @@ View.prototype.draw_board = function() {
       this.elements.squares[i].addClass('green-piece');
     }      
   }    
+};
+
+View.prototype.draw_errors = function() {
+  $('#error-messages').html("");
+  let error = this.model.fetch_and_clear_error_message();
+  if (error !== null) {
+    $('<li>').html(error).appendTo('#error-messages');    
+  }
 };
 
 View.prototype.draw_current_move = function() {

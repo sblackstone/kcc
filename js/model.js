@@ -10,7 +10,7 @@ const Model = function() {
 
 Model.prototype.handle_first_human_move = function(i) {
   if (this.square(i) !== this.human_team()) {
-    alert("You must start with one of your piecees");
+    this.set_error("You must start with one of your pieces");
   } else {
     this._state.uncommitted_move.push(i);
     this.view.highlight_square(i);  
@@ -25,19 +25,20 @@ Model.prototype.handle_nth_human_move = function(dst) {
   if (this.move_generator.is_legal_piece_move(src, dst)) {
     this.push_uncommitted_move(dst);
   } else {
-    alert("Not a legal move");
+    this.set_error("Not a legal move");
   }  
   this.view.draw();
 };
 
 Model.prototype.handle_human_uncommitted_undo = function() {
   if (!this.is_human_turn()) {
-    alert("Its not your turn");
+    this.set_error("It's not your turn!");
     return;
   }
   
   if (this.is_start_of_turn()) {
-    alert("Nothing to take back");
+    this.set_error("Nothing to take back");
+    this.view.draw();
     return;
   }
   this.pop_uncommitted_move();
@@ -170,6 +171,16 @@ Model.prototype.is_human_turn = function() {
 
 // Primatives.
 
+Model.prototype.set_error = function(msg) {
+  this._state.error_message = msg;
+};
+
+Model.prototype.fetch_and_clear_error_message = function() {
+  let err = this._state.error_message;
+  this._state.error_message = null;                                  
+  return(err);
+};
+
 Model.prototype.human_team = function() {
   return(this._state.human_team);  
 };
@@ -207,6 +218,7 @@ Model.prototype.initialize_state = function() {
                                    1, 2, 1, 2, 1, 2, 1, 2,
                                    2, 1, 2, 1, 2, 1, 2, 1,     
                                  ];  
+  this._state.error_message    = null;
                                 
   // DEBUG MODE
   this.set_square(19, 1);
