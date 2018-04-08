@@ -12,7 +12,7 @@ Model.prototype.handle_first_human_move = function(i) {
   if (this.square(i) !== this.human_team()) {
     alert("You must start with one of your piecees");
   } else {
-    this._state.uncommited_move.push(i);
+    this._state.uncommitted_move.push(i);
     this.view.highlight_square(i);  
   }
   this.view.draw();
@@ -61,19 +61,19 @@ Model.prototype.add_to_human_move = function(i) {
 };
 
 Model.prototype.uncommitted_move = function() {
-  return(this._state.uncommited_move);
+  return(this._state.uncommitted_move);
 };
 
 Model.prototype.is_start_of_turn = function() {
-  return(this._state.uncommited_move.length === 0);  
+  return(this._state.uncommitted_move.length === 0);  
 };
 
 Model.prototype.is_first_piece_destination = function() {
-  return(this._state.uncommited_move.length === 1);  
+  return(this._state.uncommitted_move.length === 1);  
 };
 
 Model.prototype.last_uncommitted_dst = function() {
-  return(this._state.uncommited_move[this._state.uncommited_move.length - 1]);
+  return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
 };
 
 
@@ -86,19 +86,19 @@ Model.prototype.push_uncommitted_move = function(dst) {
   if (this.move_generator.is_jump_move(src,dst)) {
     let jumped = this.move_generator.jumped_square(src,dst);
     if (this.is_enemy(jumped)) {
-      this._state.uncommited_move.push(-1);
+      this._state.uncommitted_move.push(-1);
       this.set_square(jumped, 0);          
     };                
   }
-  this._state.uncommited_move.push(dst);  
+  this._state.uncommitted_move.push(dst);  
 };
 
 Model.prototype.pop_uncommitted_move = function() {
-  let last_dst = this._state.uncommited_move.pop();
+  let last_dst = this._state.uncommitted_move.pop();
   let enemy_jump_move = false;
 
   if (last_dst === undefined) {
-    console.log("Warning: tried to pop empty uncommited move");
+    console.log("Warning: tried to pop empty uncommitted move");
     return;
   };
 
@@ -107,7 +107,7 @@ Model.prototype.pop_uncommitted_move = function() {
   }
 
   if (this.last_uncommitted_dst() === -1) {
-    this._state.uncommited_move.pop();
+    this._state.uncommitted_move.pop();
     enemy_jump_move = true;    
   }
   
@@ -121,6 +121,28 @@ Model.prototype.pop_uncommitted_move = function() {
   }
     
 };
+
+Model.prototype.push_move = function() {
+
+  this._state.committed_moves.push(this._state.uncommitted_move.slice(0));
+  this._state.uncommitted_move = [];
+  this._state.turn = this.other_team();
+  this.view.draw();
+};
+
+Model.prototype.pop_move = function() {
+  this._state.turn = this.other_team();
+  this._state.uncommitted_move = this._state.committed_moves.pop();
+
+  while(!this.is_start_of_turn()) {
+    console.log(this._state.uncommitted_move);
+    this.pop_uncommitted_move();
+  }
+  this.view.draw();
+    
+};
+
+
 
 // Accessors
 
@@ -169,20 +191,22 @@ Model.prototype.is_court_square = function(i) {
 };
 
 Model.prototype.initialize_state = function() {
-  this._state                 = {};
-  this._state.moves           = [];
-  this._state.human_team      = 1;
-  this._state.turn            = 1;
-  this._state.uncommited_move = [];
-  this._state.squares         = [ 1, 2, 1, 2, 1, 2, 1, 2,
-                                  2, 1, 2, 1, 2, 1, 2, 1, 
-                                  1, 2, 0, 0, 0, 0, 1, 2,
-                                  2, 1, 0, 0, 0, 0, 2, 1, 
-                                  1, 2, 0, 0, 0, 0, 1, 2,
-                                  2, 1, 0, 0, 0, 0, 2, 1, 
-                                  1, 2, 1, 2, 1, 2, 1, 2,
-                                  2, 1, 2, 1, 2, 1, 2, 1,     
-                                ];  
+  this._state                  = {};
+  this._state.moves            = [];
+  this._state.human_team       = 1;
+  this._state.turn             = 1;
+  this._state.uncommitted_move = [];
+  this._state.committed_moves  = [];
+
+  this._state.squares          = [ 1, 2, 1, 2, 1, 2, 1, 2,
+                                   2, 1, 2, 1, 2, 1, 2, 1, 
+                                   1, 2, 0, 0, 0, 0, 1, 2,
+                                   2, 1, 0, 0, 0, 0, 2, 1, 
+                                   1, 2, 0, 0, 0, 0, 1, 2,
+                                   2, 1, 0, 0, 0, 0, 2, 1, 
+                                   1, 2, 1, 2, 1, 2, 1, 2,
+                                   2, 1, 2, 1, 2, 1, 2, 1,     
+                                 ];  
                                 
   // DEBUG MODE
   this.set_square(19, 1);
