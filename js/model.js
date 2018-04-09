@@ -70,8 +70,8 @@ Model.prototype.human_commit_move = function() {
   if (move.length < 2) {
     this.set_error("You need to make a move first");
     this.view.draw();
-    return
-  };
+    return;
+  }
   
   this.push_move();
   this.make_computer_move();
