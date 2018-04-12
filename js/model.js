@@ -122,14 +122,12 @@ Model.prototype.winner = function() {
     return(0);
   }
 
-  // temp algo - need to do this better than this...
-  // TODO: test me..
-
   counts = [0, 0, 0];
   
-  for (i = 0; i < 64; i++) {
-    counts[this.square(i)] += 1;
-  }
+  this.court_squares.forEach((i)=> {
+    counts[this.square(i)] += 1;    
+  });
+  
   if (counts[1] == 0) {
     return(2);
   }
@@ -263,7 +261,7 @@ Model.prototype.square = function(i) {
 };
 
 Model.prototype.is_court_square = function(i) {
-  return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0][i];
+  return this.court_square_map[i];
 };
 
 Model.prototype.is_early_game = function() {
@@ -295,3 +293,5 @@ Model.prototype.initialize_state = function() {
 
 };
 
+Model.prototype.court_squares    = [18,19,20,21,26,27,28,29,34,35,36,37,42,43,44,45];
+Model.prototype.court_square_map = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
