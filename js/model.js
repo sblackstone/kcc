@@ -62,6 +62,30 @@ Model.prototype.add_to_human_move = function(i) {
 };
 
 Model.prototype.make_computer_move = function() {
+  let moves, r;
+  
+  while(true) {
+    moves = this.move_generator.legal_moves();
+    r = Math.floor(Math.random()*(moves.length));
+    this.push_uncommitted_move(moves[r]);
+    moves = this.move_generator.legal_moves();
+    if (moves.length > 0) {
+      break;
+    }
+    this.pop_uncommitted_move();    
+  }
+  console.log(`First Part = `);
+  console.log(this.uncommitted_move());
+
+  r = Math.floor(Math.random()*(moves.length));
+  console.log(r);
+  this.push_uncommitted_move(moves[r]);
+
+  console.log(`Then Part = `);
+  console.log(this.uncommitted_move());
+  this.push_move();
+  this.view.draw();
+  
   console.log("make computer move");
 };
 
@@ -120,7 +144,9 @@ Model.prototype.winner = function() {
 
 Model.prototype.push_uncommitted_move = function(dst) {
   let src = this.last_uncommitted_dst();
-  this.move_piece(src, dst);
+  if (src !== undefined) {
+    this.move_piece(src, dst);    
+  }
 
   if (this.move_generator.is_jump_move(src,dst)) {
     let jumped = this.move_generator.jumped_square(src,dst);
@@ -152,11 +178,12 @@ Model.prototype.pop_uncommitted_move = function() {
   
   let last_src = this.last_uncommitted_dst();
 
-  this.move_piece(last_dst, last_src);
-
-  if (this.move_generator.is_jump_move(last_dst,last_src) && enemy_jump_move) {
-    let jumped = this.move_generator.jumped_square(last_dst,last_src);
-    this.set_square(jumped, this.other_team());          
+  if (last_src !== undefined) {
+    this.move_piece(last_dst, last_src);
+    if (this.move_generator.is_jump_move(last_dst,last_src) && enemy_jump_move) {
+      let jumped = this.move_generator.jumped_square(last_dst,last_src);
+      this.set_square(jumped, this.other_team());          
+    }    
   }
     
 };
@@ -262,9 +289,9 @@ Model.prototype.initialize_state = function() {
                                  ];  
                                 
   // DEBUG MODE
-  this.set_square(19, 1);
-  this.set_square(27, 2);
-  this.set_square(26, 2);
+  //this.set_square(19, 1);
+  //this.set_square(27, 2);
+  //this.set_square(26, 2);
 
 };
 
