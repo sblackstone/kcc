@@ -1,18 +1,22 @@
 html, body {
-  background-color: #000;
-  overflow: hidden; }
+  background-color: #000; }
+
+#game {
+  margin: 0 auto;
+  width: 80vmin; }
 
 #board {
-  box-sizing: content-box;
-  width: 40vw;
-  height: 40vw;
+  width: calc(80vmin);
+  height: calc(80vmin);
   font-size: 0 !important;
   background: #eaeaea;
-  border: 15px solid #204339; }
+  border: 10px solid #204339;
+  box-sizing: content-box;
+  margin-top: 1vh; }
 
 .square {
-  width: 5vw;
-  height: 5vw;
+  width: 10vmin;
+  height: 10vmin;
   display: inline-block; }
 
 .highlight .internal-square {
@@ -26,13 +30,13 @@ html, body {
 
 .internal-square {
   margin: 0 auto;
-  width: 3.53553391vw;
-  height: 3.53553391vw;
+  width: 7.0710678119vmin;
+  height: 7.0710678119vmin;
   transform: rotate(45deg);
   background-color: #cfb986;
   border: 1px solid orange;
-  margin-top: 10px;
   position: relative;
+  margin-top: 1.4644660941vmin;
   font-size: 11px; }
 
 .rank:last-child .square:last-child {
@@ -40,10 +44,10 @@ html, body {
 
 .piece {
   position: absolute;
-  top: 0.25vw;
-  left: 0.25vw;
-  height: 3vw;
-  width: 3vw;
+  top: 0.7071067812vmin;
+  left: 0.7071067812vmin;
+  height: 5.6568542495vmin;
+  width: 5.6568542495vmin;
   background-color: transparent;
   border-radius: 50%;
   display: inline-block; }
