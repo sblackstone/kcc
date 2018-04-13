@@ -11,10 +11,24 @@ const Model = function() {
 Model.prototype.handle_first_human_move = function(i) {
   if (this.square(i) !== this.human_team()) {
     this.set_error("You must start with one of your pieces");
-  } else {
-    this._state.uncommitted_move.push(i);
-    this.view.highlight_square(i);  
+    this.view.draw();
+    return;
   }
+
+  this._state.uncommitted_move.push(i);
+
+  let moves = this.move_generator.legal_moves();
+
+  if (moves.length == 0) {
+    if (this.is_early_game()) {
+      this.set_error("Your first move must be a sliding move");                
+    } else {
+      this.set_error("This piece has no moves");          
+    }
+    this._state.uncommitted_move.pop(i);
+
+  }
+  
   this.view.draw();
   return;      
 };
@@ -24,13 +38,14 @@ Model.prototype.handle_nth_human_move = function(dst) {
   let src = this.last_uncommitted_dst();
   if (this.move_generator.is_legal_piece_move(src, dst)) {
     this.push_uncommitted_move(dst);
-  } else if (this.is_first_piece_destination() && this.square(dst) == this.human_team()) {
+  } else if (this.is_first_piece_destination() && this.square(dst) == this.human_team()) { // They want to start with a different sq.
     this._state.uncommitted_move.pop();
     this._state.uncommitted_move.push(dst);
 
   } else {
     this.set_error("Not a legal move");
-  }  
+  }
+  
   this.view.draw();
 };
 
