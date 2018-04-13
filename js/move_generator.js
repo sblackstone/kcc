@@ -62,7 +62,7 @@ MoveGenerator.prototype.legal_followup_moves = function() {
   }
 
   // No jumping in first 4 moves.
-  if (!this.model.is_early_game()) {
+  if (!this.model.is_first_turn()) {
     this.add_jump_moves(moves, src);    
   }
   return(moves);  

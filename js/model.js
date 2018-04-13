@@ -20,7 +20,7 @@ Model.prototype.handle_first_human_move = function(i) {
   let moves = this.move_generator.legal_moves();
 
   if (moves.length == 0) {
-    if (this.is_early_game()) {
+    if (this.is_first_turn()) {
       this.set_error("Your first move must be a sliding move");                
     } else {
       this.set_error("This piece has no moves");          
@@ -140,7 +140,7 @@ Model.prototype.last_uncommitted_dst = function() {
 };
 
 Model.prototype.winner = function() {
-  if (this.is_early_game()) {
+  if (this.is_first_turn()) {
     return(0);
   }
 
@@ -286,7 +286,7 @@ Model.prototype.is_court_square = function(i) {
   return this.court_square_map[i];
 };
 
-Model.prototype.is_early_game = function() {
+Model.prototype.is_first_turn = function() {
   return(this._state.committed_moves.length < 2);
 };
 
