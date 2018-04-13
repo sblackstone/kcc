@@ -60,6 +60,7 @@ html, body {
 
 #current-move {
   color: #fff;
+  display: inline-block;
   padding: 15px; }
 
 #error-messages {

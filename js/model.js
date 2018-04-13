@@ -24,6 +24,10 @@ Model.prototype.handle_nth_human_move = function(dst) {
   let src = this.last_uncommitted_dst();
   if (this.move_generator.is_legal_piece_move(src, dst)) {
     this.push_uncommitted_move(dst);
+  } else if (this.is_first_piece_destination() && this.square(dst) == this.human_team()) {
+    this._state.uncommitted_move.pop();
+    this._state.uncommitted_move.push(dst);
+
   } else {
     this.set_error("Not a legal move");
   }  
@@ -42,6 +46,9 @@ Model.prototype.handle_human_uncommitted_undo = function() {
     return;
   }
   this.pop_uncommitted_move();
+  if (this.is_first_piece_destination()) {
+    this._state.uncommitted_move.pop();
+  }
   this.view.draw();
   
 };
