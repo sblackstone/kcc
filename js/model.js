@@ -96,19 +96,11 @@ Model.prototype.make_computer_move = function() {
     }
     this.pop_uncommitted_move();    
   }
-  console.log(`First Part = `);
-  console.log(this.uncommitted_move());
-
   r = Math.floor(Math.random()*(moves.length));
-  console.log(r);
   this.push_uncommitted_move(moves[r]);
 
-  console.log(`Then Part = `);
-  console.log(this.uncommitted_move());
   this.push_move();
-  this.view.draw();
-  
-  console.log("make computer move");
+  this.view.draw();  
 };
 
 Model.prototype.human_commit_move = function() {
@@ -221,7 +213,6 @@ Model.prototype.pop_move = function() {
   this._state.uncommitted_move = this._state.committed_moves.pop();
 
   while(!this.is_start_of_turn()) {
-    console.log(this._state.uncommitted_move);
     this.pop_uncommitted_move();
   }
   this.view.draw();

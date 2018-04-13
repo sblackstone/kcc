@@ -60,12 +60,10 @@ View.prototype.draw_current_move = function() {
 };
 
 View.prototype.highlight_square = function(i) {
-  console.log(`Highlighting ${i}`);
   this.elements.squares[i].addClass('highlight');  
 };
 
 View.prototype.highlight_legal_move = function(i) {
-  console.log(`Highlighting Legal Move ${i}`);
   this.elements.squares[i].addClass('highlight-legal-move');  
 };
 

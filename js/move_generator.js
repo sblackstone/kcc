@@ -1,5 +1,4 @@
 const MoveGenerator = function(model) {
-  console.log("Hello!");
   this.model = model;
   window.mg = this;
   // Generated from scripts in ./scripts
