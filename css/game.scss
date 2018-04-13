@@ -32,8 +32,8 @@ html, body {
 }
 
 #board {
-  width: calc(#{$board_width}vmin);  
-  height: calc(#{$board_width}vmin);  
+  width: #{$board_width}vmin;  
+  height: #{$board_width}vmin;  
   font-size: 0 !important;
   background: #eaeaea; // url('./img/marble.jpg') top left no-repeat;
   border: 10px solid rgb(32,67,57);

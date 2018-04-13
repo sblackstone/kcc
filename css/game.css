@@ -6,8 +6,8 @@ html, body {
   width: 80vmin; }
 
 #board {
-  width: calc(80vmin);
-  height: calc(80vmin);
+  width: 80vmin;
+  height: 80vmin;
   font-size: 0 !important;
   background: #eaeaea;
   border: 10px solid #204339;
