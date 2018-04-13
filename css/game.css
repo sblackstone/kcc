@@ -1,17 +1,18 @@
 html, body {
-  background-color: #000; }
+  background-color: #000;
+  overflow: hidden; }
 
 #board {
-  width: 606px;
-  height: 606px;
+  box-sizing: content-box;
+  width: 40vw;
+  height: 40vw;
+  font-size: 0 !important;
   background: url("/img/marble.jpg") top left no-repeat;
-  clear: both;
   border: 15px solid #204339; }
 
 .square {
-  width: 72px;
-  height: 72px;
-  float: left;
+  width: 5vw;
+  height: 5vw;
   display: inline-block; }
 
 .highlight .internal-square {
@@ -25,8 +26,8 @@ html, body {
 
 .internal-square {
   margin: 0 auto;
-  width: 50px;
-  height: 50px;
+  width: 3.53553391vw;
+  height: 3.53553391vw;
   transform: rotate(45deg);
   background-color: #cfb986;
   border: 1px solid orange;
@@ -39,10 +40,10 @@ html, body {
 
 .piece {
   position: absolute;
-  left: 5px;
-  top: 5px;
-  height: 40px;
-  width: 40px;
+  top: 0.25vw;
+  left: 0.25vw;
+  height: 3vw;
+  width: 3vw;
   background-color: transparent;
   border-radius: 50%;
   display: inline-block; }
