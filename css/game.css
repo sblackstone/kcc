@@ -7,7 +7,7 @@ html, body {
   width: 40vw;
   height: 40vw;
   font-size: 0 !important;
-  background: url("./img/marble.jpg") top left no-repeat;
+  background: #eaeaea;
   border: 15px solid #204339; }
 
 .square {
