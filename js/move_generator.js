@@ -71,7 +71,7 @@ MoveGenerator.prototype.legal_followup_moves = function() {
     this.add_slide_moves(moves, src);        
   }
 
-  // No jumping in first 4 moves.
+  // No jumping in first 2 moves or if we've already slid..
   if (!this.model.is_first_turn() && !this.model.is_uncommitted_slide()) {
     this.add_jump_moves(moves, src);    
   }
