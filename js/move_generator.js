@@ -10,6 +10,9 @@ const MoveGenerator = function(model) {
 
 
 MoveGenerator.prototype.is_legal_piece_move = function(src, dst) {
+  if (this.model.winner() > 0) {
+    return([]);    
+  }
   let moves = this.legal_moves();
   return(moves.indexOf(dst) > -1);
 };
@@ -19,6 +22,12 @@ MoveGenerator.prototype.is_jump_move = function(src,dst) {
   let delta = Math.abs(dst - src);
   return(delta == 16 || delta == 2);
 };
+
+MoveGenerator.prototype.is_slide_move = function(src,dst) {
+  let delta = Math.abs(dst - src);
+  return(delta == 1 || delta == 8);
+};
+
 
 MoveGenerator.prototype.jumped_square = function(src, dst) {
   return src + ((dst - src) / 2);  
@@ -32,6 +41,8 @@ MoveGenerator.prototype.add_slide_moves = function(moves, src) {
   });  
 };
 
+
+// This needs to not allow jump-backs
 MoveGenerator.prototype.add_jump_moves = function(moves, src)  {
   this.jump_moves[src].forEach((dst)=> {
     if (this.model.is_start_of_turn() || src == this.model.last_uncommitted_dst()) {
@@ -61,7 +72,7 @@ MoveGenerator.prototype.legal_followup_moves = function() {
   }
 
   // No jumping in first 4 moves.
-  if (!this.model.is_first_turn()) {
+  if (!this.model.is_first_turn() && !this.model.is_uncommitted_slide()) {
     this.add_jump_moves(moves, src);    
   }
   return(moves);  

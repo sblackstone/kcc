@@ -8,6 +8,24 @@ const Model = function() {
 };
 
 
+Model.prototype.each_child = function(depth) {
+  if (depth === 0) {
+    return;
+  }
+  let legal_moves = this.move_generator.legal_moves();
+  legal_moves.forEach((move) => {
+    if (move !== this.last_uncommitted_dst()) {
+      this.push_uncommitted_move(move);
+      if (!this.is_first_piece_destination()) {
+        console.log(this._state.uncommitted_move);  /// <--- this should be a yield.  
+      }
+      this.each_child(depth - 1);
+      this.pop_uncommitted_move();      
+    }
+  });
+  
+};
+
 Model.prototype.handle_first_human_move = function(i) {
   if (this.square(i) !== this.human_team()) {
     this.set_error("You must start with one of your pieces");
@@ -19,7 +37,7 @@ Model.prototype.handle_first_human_move = function(i) {
 
   let moves = this.move_generator.legal_moves();
 
-  if (moves.length == 0) {
+  if (moves.length === 0) {
     if (this.is_first_turn()) {
       this.set_error("Your first move must be a sliding move");                
     } else {
@@ -118,6 +136,15 @@ Model.prototype.human_commit_move = function() {
 Model.prototype.uncommitted_move = function() {
   return(this._state.uncommitted_move);
 };
+
+
+Model.prototype.is_uncommitted_slide = function() {
+  if (this._state.uncommitted_move.length === 2) {
+    return(this.move_generator.is_slide_move(this._state.uncommitted_move[0],
+                                             this._state.uncommitted_move[1]));
+  }
+  return(false);
+}
 
 Model.prototype.is_start_of_turn = function() {
   return(this._state.uncommitted_move.length === 0);  
