@@ -10,9 +10,6 @@ const MoveGenerator = function(model) {
 
 
 MoveGenerator.prototype.is_legal_piece_move = function(src, dst) {
-  if (this.model.winner() > 0) {
-    return([]);    
-  }
   let moves = this.legal_moves();
   return(moves.indexOf(dst) > -1);
 };
@@ -56,6 +53,9 @@ MoveGenerator.prototype.add_jump_moves = function(moves, src)  {
 
 MoveGenerator.prototype.legal_first_moves = function() {
   const moves = [];
+  if (this.model.winner() > 0) {
+    return([]);    
+  }
   for (let i = 0; i < 64; i++) {
     if (this.model.square(i) == this.model.turn()) {
       moves.push(i);
