@@ -64,6 +64,8 @@ html, body {
   padding: 15px; }
 
 #error-messages {
+  margin-top: 5px;
+  min-height: 26px;
   color: red; }
 
 /*# sourceMappingURL=game.css.map */
