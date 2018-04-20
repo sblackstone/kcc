@@ -162,6 +162,7 @@ Model.prototype.winner = function() {
   if (this.is_first_turn()) {
     return(0);
   }
+  // This should be O(1) via memoization, currently O(n)..
 
   counts = [0, 0, 0];
   
