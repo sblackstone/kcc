@@ -53,9 +53,6 @@ MoveGenerator.prototype.add_jump_moves = function(moves, src)  {
 
 MoveGenerator.prototype.legal_first_moves = function() {
   const moves = [];
-  if (this.model.winner() > 0) {
-    return([]);    
-  }
   for (let i = 0; i < 64; i++) {
     if (this.model.square(i) == this.model.turn()) {
       moves.push(i);
@@ -80,6 +77,10 @@ MoveGenerator.prototype.legal_followup_moves = function() {
 
 
 MoveGenerator.prototype.legal_moves = function() {
+  if (this.model.winner() > 0) {
+    return([]);    
+  }
+  
   return this.model.is_start_of_turn() ? this.legal_first_moves() : this.legal_followup_moves();
 };
 

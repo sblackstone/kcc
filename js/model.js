@@ -133,10 +133,6 @@ Model.prototype.human_commit_move = function() {
   this.make_computer_move();
 };
 
-Model.prototype.uncommitted_move = function() {
-  return(this._state.uncommitted_move);
-};
-
 
 Model.prototype.is_uncommitted_slide = function() {
   if (this._state.uncommitted_move.length === 2) {
@@ -145,18 +141,6 @@ Model.prototype.is_uncommitted_slide = function() {
   }
   return(false);
 }
-
-Model.prototype.is_start_of_turn = function() {
-  return(this._state.uncommitted_move.length === 0);  
-};
-
-Model.prototype.is_first_piece_destination = function() {
-  return(this._state.uncommitted_move.length === 1);  
-};
-
-Model.prototype.last_uncommitted_dst = function() {
-  return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
-};
 
 Model.prototype.winner = function() {
   if (this.is_first_turn()) {
@@ -247,13 +231,36 @@ Model.prototype.pop_move = function() {
     
 };
 
+Model.prototype.fetch_and_clear_error_message = function() {
+  let err = this._state.error_message;
+  this._state.error_message = null;                                  
+  return(err);
+};
 
-
-// Accessors
 
 Model.prototype.move_piece = function(src,dst) {
   this.set_square(dst, this.square(src));    
   this.set_square(src, 0);  
+};
+
+
+// Primatives.
+
+Model.prototype.uncommitted_move = function() {
+  return(this._state.uncommitted_move);
+};
+
+
+Model.prototype.is_start_of_turn = function() {
+  return(this._state.uncommitted_move.length === 0);  
+};
+
+Model.prototype.is_first_piece_destination = function() {
+  return(this._state.uncommitted_move.length === 1);  
+};
+
+Model.prototype.last_uncommitted_dst = function() {
+  return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
 };
 
 Model.prototype.other_team = function() {
@@ -272,17 +279,8 @@ Model.prototype.is_human_turn = function() {
   return(this.turn() === this.human_team());
 };
 
-
-// Primatives.
-
 Model.prototype.set_error = function(msg) {
   this._state.error_message = msg;
-};
-
-Model.prototype.fetch_and_clear_error_message = function() {
-  let err = this._state.error_message;
-  this._state.error_message = null;                                  
-  return(err);
 };
 
 Model.prototype.human_team = function() {
