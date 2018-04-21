@@ -8,21 +8,23 @@ const Model = function() {
 };
 
 
-Model.prototype.each_child = function(depth) {
+Model.prototype.each_child = function*(depth) {
   if (depth === 0) {
     return;
   }
+
   let legal_moves = this.move_generator.legal_moves();
-  legal_moves.forEach((move) => {
-    if (move !== this.last_uncommitted_dst()) {
-      this.push_uncommitted_move(move);
-      if (!this.is_first_piece_destination()) {
-        console.log(this._state.uncommitted_move);  /// <--- this should be a yield.  
-      }
-      this.each_child(depth - 1);
-      this.pop_uncommitted_move();      
+
+  for (let i = 0; i < legal_moves.length; i++) {
+    let move = legal_moves[i];
+    this.push_uncommitted_move(move);
+
+    if (!this.is_first_piece_destination()) {
+      yield this._state.uncommitted_move;      
     }
-  });
+    yield *this.each_child(depth - 1);    
+    this.pop_uncommitted_move();      
+  }
   
 };
 
