@@ -246,11 +246,6 @@ Model.prototype.move_piece = function(src,dst) {
 
 // Primatives.
 
-Model.prototype.uncommitted_move = function() {
-  return(this._state.uncommitted_move);
-};
-
-
 Model.prototype.is_start_of_turn = function() {
   return(this._state.uncommitted_move.length === 0);  
 };
@@ -259,12 +254,12 @@ Model.prototype.is_first_piece_destination = function() {
   return(this._state.uncommitted_move.length === 1);  
 };
 
-Model.prototype.last_uncommitted_dst = function() {
-  return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
+Model.prototype.is_court_square = function(i) {
+  return this.court_square_map[i];
 };
 
-Model.prototype.other_team = function() {
-  return this.turn() == 1 ? 2 : 1;  
+Model.prototype.is_first_turn = function() {
+  return(this._state.committed_moves.length < 2);
 };
 
 Model.prototype.is_enemy = function(i) {
@@ -277,6 +272,19 @@ Model.prototype.is_empty = function(i) {
 
 Model.prototype.is_human_turn = function() {
   return(this.turn() === this.human_team());
+};
+
+Model.prototype.uncommitted_move = function() {
+  return(this._state.uncommitted_move);
+};
+
+
+Model.prototype.last_uncommitted_dst = function() {
+  return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
+};
+
+Model.prototype.other_team = function() {
+  return this.turn() == 1 ? 2 : 1;  
 };
 
 Model.prototype.set_error = function(msg) {
@@ -299,13 +307,6 @@ Model.prototype.square = function(i) {
   return this._state.squares[i];  
 };
 
-Model.prototype.is_court_square = function(i) {
-  return this.court_square_map[i];
-};
-
-Model.prototype.is_first_turn = function() {
-  return(this._state.committed_moves.length < 2);
-};
 
 Model.prototype.initialize_state = function() {
   this._state                  = {};
