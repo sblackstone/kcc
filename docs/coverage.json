@@ -1,0 +1,83 @@
+{
+  "coverage": "0%",
+  "expectCount": 52,
+  "actualCount": 0,
+  "files": {
+    "js/controller.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        8
+      ]
+    },
+    "js/model.js": {
+      "expectCount": 32,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        11,
+        29,
+        55,
+        70,
+        90,
+        104,
+        124,
+        137,
+        145,
+        169,
+        185,
+        215,
+        223,
+        234,
+        241,
+        249,
+        253,
+        257,
+        261,
+        265,
+        269,
+        273,
+        277,
+        282,
+        286,
+        290,
+        294,
+        298,
+        302,
+        306,
+        311
+      ]
+    },
+    "js/move_generator.js": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        12,
+        18,
+        23,
+        29,
+        33,
+        43,
+        54,
+        64,
+        79
+      ]
+    },
+    "js/view.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        15,
+        21,
+        33,
+        41,
+        62,
+        66,
+        71
+      ]
+    }
+  }
+}

@@ -16,3 +16,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+
+# No node_modules
+/node_modules/

@@ -1,0 +1,6 @@
+{
+  "source": "./js",
+  "destination": "./docs",
+  "excludes": ["jquery-3.2.1.slim.min.js", "bootstrap.min.js"],
+  "plugins": [{"name": "esdoc-standard-plugin"}]
+}
