@@ -7,6 +7,7 @@ const View = function(model) {
   this.elements.board = $('#board');    
   this.elements.errors = $('#error-messages');
   this.elements.current_move = $('#current-move');
+  this.elements.current_turn = $('#current-turn');
   this.elements.squares = [];
   this.init_squares();
   this.draw();  
@@ -15,7 +16,9 @@ const View = function(model) {
 View.prototype.draw = function() { 
   this.draw_board();
   this.draw_current_move();
+  this.draw_last_move();
   this.draw_errors();
+  this.draw_turn();
 };
 
 View.prototype.draw_board = function() {
@@ -36,6 +39,12 @@ View.prototype.draw_errors = function() {
   if (error !== null) {
     $('<li>').html(error).appendTo(this.elements.errors);    
   }
+};
+
+View.prototype.draw_turn = function() {
+  this.elements.current_turn.removeClass("red green");
+  this.elements.current_turn.html(this.model.turn() == 1 ? "Red's Turn" : "Green's Turn");
+  this.elements.current_turn.addClass(this.model.turn() == 1 ? "red" : "green");
 };
 
 View.prototype.draw_current_move = function() {
@@ -59,6 +68,17 @@ View.prototype.draw_current_move = function() {
   
 };
 
+
+View.prototype.draw_last_move = function() {
+  $('.highlight-last-move').removeClass('highlight-last-move');
+  let move = this.model.last_committed_move();
+  move.forEach((i) => {
+    if (i >= 0) {
+      this.highlight_last_move(i);      
+    }
+  });
+};
+
 View.prototype.highlight_square = function(i) {
   this.elements.squares[i].addClass('highlight');  
 };
@@ -66,6 +86,14 @@ View.prototype.highlight_square = function(i) {
 View.prototype.highlight_legal_move = function(i) {
   this.elements.squares[i].addClass('highlight-legal-move');  
 };
+
+View.prototype.highlight_last_move = function(i) {
+  console.log(`Highlighting last move ${i}`);
+  this.elements.squares[i].addClass('highlight-last-move');  
+};
+
+
+
 
 
 View.prototype.init_squares = function() {

@@ -1,3 +1,15 @@
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function blarg() {
+  for (i of window.model.each_child(5)) {
+    window.view.draw();
+    await sleep(1500);
+  };
+}
+
+
 const Model = function() {
   console.log("Initializing Model");
   this.initialize_state();
@@ -20,7 +32,10 @@ Model.prototype.each_child = function*(depth) {
     this.push_uncommitted_move(move);
 
     if (!this.is_first_piece_destination()) {
+      this.push_move();
       yield this._state.uncommitted_move;      
+      this.pop_move();
+
     }
     yield *this.each_child(depth - 1);    
     this.pop_uncommitted_move();      
@@ -76,6 +91,7 @@ Model.prototype.human_commit_move = function() {
   }
   
   this.push_move();
+  this.view.draw();
   this.make_computer_move();
 };
 
@@ -186,13 +202,17 @@ Model.prototype.push_move = function() {
   this._state.committed_moves.push(this._state.uncommitted_move.slice(0));
   this._state.uncommitted_move = [];
   this._state.turn = this.other_team();
-  this.view.draw();
 };
 
 Model.prototype.pop_move = function() {
   this._state.turn = this.other_team();
-  this._state.uncommitted_move = this._state.committed_moves.pop();
+  this._state.uncommitted_move = this._state.committed_moves.pop();    
+};
 
+
+Model.prototype.undo = function() {
+
+  this.pop_move();
   while(!this.is_start_of_turn()) {
     this.pop_uncommitted_move();
   }
@@ -247,6 +267,12 @@ Model.prototype.uncommitted_move = function() {
   return(this._state.uncommitted_move);
 };
 
+Model.prototype.last_committed_move = function() {
+  if (this._state.committed_moves.length === 0) {
+    return([]);
+  }
+  return(this._state.committed_moves[this._state.committed_moves.length - 1].slice(0));
+};
 
 Model.prototype.last_uncommitted_dst = function() {
   return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);

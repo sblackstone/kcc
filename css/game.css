@@ -23,7 +23,11 @@ html, body {
   background-color: yellow !important; }
 
 .highlight-legal-move .internal-square {
-  background-color: purple !important; }
+  background-color: yellow !important; }
+
+.highlight-last-move .internal-square {
+  background-color: purple !important;
+}
 
 .court-square {
   background-color: #204339 !important; }
@@ -62,6 +66,15 @@ html, body {
   color: #fff;
   display: inline-block;
   padding: 15px; }
+  
+#current-turn.red {
+  color: red;
+}
+
+#current-turn.green {
+  color: green;
+}
+
 
 #error-messages {
   margin-top: 5px;
