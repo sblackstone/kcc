@@ -61,6 +61,26 @@ Model.prototype.add_to_human_move = function(dst) {
   return;
 };
 
+Model.prototype.heuristic = function() {
+  if (this.winner() == this.turn()) {
+    return(99999999);
+  }
+  if (this.winner() == this.other_team()) {
+    return(-99999999);
+  }
+  let score = 0;
+  for (let i = 0; i < 64; i++) {
+    if (this.square(i) == this.turn()) {
+      score += 1;
+      if (this.is_court_square(i)) {
+        score += 1;
+      }
+    } else if (this.square(i) == this.other_team()) {
+      score -= 1;
+    }
+  }
+  return(score);
+};
 
 Model.prototype.handle_human_uncommitted_undo = function() {
   if (!this.is_human_turn()) {
