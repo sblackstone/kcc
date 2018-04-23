@@ -28,46 +28,24 @@ Model.prototype.each_child = function*(depth) {
   
 };
 
-Model.prototype.handle_first_human_move = function(i) {
-  if (this.square(i) !== this.human_team()) {
-    this.set_error("You must start with one of your pieces");
-    this.view.draw();
+Model.prototype.add_to_human_move = function(dst) {
+  if (!this.is_human_turn()) {
+    alert("Its not your turn");
     return;
   }
-
-  this._state.uncommitted_move.push(i);
-
-  let moves = this.move_generator.legal_moves();
-
-  if (moves.length === 0) {
-    if (this.is_first_turn()) {
-      this.set_error("Your first move must be a sliding move");                
-    } else {
-      this.set_error("This piece has no moves");          
-    }
-    this._state.uncommitted_move.pop(i);
-
-  }
   
-  this.view.draw();
-  return;      
-};
-
-
-Model.prototype.handle_nth_human_move = function(dst) {
   let src = this.last_uncommitted_dst();
   if (this.move_generator.is_legal_piece_move(src, dst)) {
     this.push_uncommitted_move(dst);
-  } else if (this.is_first_piece_destination() && this.square(dst) == this.human_team()) { // They want to start with a different sq.
-    this._state.uncommitted_move.pop();
-    this._state.uncommitted_move.push(dst);
-
   } else {
     this.set_error("Not a legal move");
   }
   
   this.view.draw();
+  
+  return;
 };
+
 
 Model.prototype.handle_human_uncommitted_undo = function() {
   if (!this.is_human_turn()) {
@@ -89,19 +67,18 @@ Model.prototype.handle_human_uncommitted_undo = function() {
 };
 
 
-Model.prototype.add_to_human_move = function(i) {
-  if (!this.is_human_turn()) {
-    alert("Its not your turn");
+Model.prototype.human_commit_move = function() {
+  let move = this.uncommitted_move();
+  if (move.length < 2) {
+    this.set_error("You need to make a move first");
+    this.view.draw();
     return;
   }
-      
-  if (this.is_start_of_turn()) {
-    this.handle_first_human_move(i);
-  } else {
-    this.handle_nth_human_move(i);
-  }
-  return;
+  
+  this.push_move();
+  this.make_computer_move();
 };
+
 
 Model.prototype.make_computer_move = function() {
   let moves, r;
@@ -123,17 +100,7 @@ Model.prototype.make_computer_move = function() {
   this.view.draw();  
 };
 
-Model.prototype.human_commit_move = function() {
-  let move = this.uncommitted_move();
-  if (move.length < 2) {
-    this.set_error("You need to make a move first");
-    this.view.draw();
-    return;
-  }
-  
-  this.push_move();
-  this.make_computer_move();
-};
+
 
 
 Model.prototype.is_uncommitted_slide = function() {
