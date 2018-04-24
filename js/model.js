@@ -133,8 +133,6 @@ Model.prototype.minimax = function(depth, maximizingPlayer = true, track_moves =
       if (tmp > v) {
         if (track_moves) {
           best = this.last_committed_move().slice(0);
-          console.log(this._state.committed_moves);
-          console.log(v);
         }
         v = tmp;
       }
@@ -149,45 +147,47 @@ Model.prototype.minimax = function(depth, maximizingPlayer = true, track_moves =
     }    
   }
   
-  if (track_moves) {
-    console.log(best);
-    console.log(v);
-    return(best);
-  } else {
-    return(v);          
-  }
-
+  return track_moves ? best : v;
+  
 };
 
-Model.prototype.alpha_beta = function(depth, alpha = -Infinity, beta = Infinity, maximizingPlayer = true) {
+
+Model.prototype.alpha_beta = function(depth, alpha = -Infinity, beta = Infinity, maximizingPlayer = true, track_moves = true) {
+  if (track_moves) {
+    console.log("Finding move for " + this.turn());
+  }
   if (depth == 0 || this.winner() > 0) {
-    return this.heuristic();    
+    return this.heuristic(maximizingPlayer);    
   }
   let v = 0;
+  let best = null;
   if (maximizingPlayer) {
     v = -Infinity;
     for (let i of this.each_child(5)) {
-      v = Math.max(v, this.alpha_beta(depth - 1, alpha, beta, false));
-      alpha = Math.max(alpha, v);
-      if (beta <= alpha) {
-        this.rollback_uncommitted();
-        break;
-      }      
+      if (beta > alpha) {
+        let tmp = this.alpha_beta(depth - 1, alpha, beta, false, false);
+        if (tmp > v) {
+          if (track_moves) {
+            best = this.last_committed_move().slice(0);
+          }
+          v = tmp;
+          alpha = Math.max(alpha, v);
+        }        
+      }
     }
   } else {
     v = Infinity;
     for (let i of this.each_child(5)) {
-      v = Math.min(v, this.alpha_beta(depth - 1, alpha, beta, true));
-      beta = Math.min(v, beta);
-      if (beta <= alpha) {
-        this.rollback_uncommitted();
-        break;
+      if (beta > alpha) {
+        let tmp = this.alpha_beta(depth - 1, alpha, beta, true, false);
+        if (tmp < v) {
+          v = tmp;
+          beta = Math.min(v, beta);
+        }
       }
-    }
-    
-  }
-  return(v);      
-
+    }    
+  }  
+  return track_moves ? best : v;
 };
 
 Model.prototype.handle_human_uncommitted_undo = function() {
@@ -234,7 +234,8 @@ Model.prototype.make_computer_move = function() {
     return;
   }
 
-  move = this.minimax(4, true, true);
+  move = this.alpha_beta(4);
+  console.log(move);
   for (let i = 0; i < move.length; i++) {
     // Ignore -1s from the move generation, push_uncommitted will add them back in.
     if (move[i] > -1) {
