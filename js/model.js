@@ -220,7 +220,10 @@ Model.prototype.human_commit_move = function() {
   
   this.push_move();
   this.view.draw();
-  this.make_computer_move();
+  // Give the view enough time to draw the screen before we
+  // go into the game tree search...
+  setTimeout(this.make_computer_move.bind(this), 100);
+  
 };
 
 
@@ -231,7 +234,7 @@ Model.prototype.make_computer_move = function() {
     return;
   }
 
-  move = this.minimax(3, true, true);
+  move = this.minimax(4, true, true);
   for (let i = 0; i < move.length; i++) {
     // Ignore -1s from the move generation, push_uncommitted will add them back in.
     if (move[i] > -1) {

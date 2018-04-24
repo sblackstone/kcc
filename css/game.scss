@@ -17,7 +17,7 @@
 
 $board_width: 80; // VH..
 $square_width: $board_width / 8.0; // 8 squares.
-$internal_square_width: sqrt($square_width*$square_width / 2.0); // If you turn it sideways, apply a^2 + b^2 = c^2
+$internal_square_width: sqrt($square_width*$square_width / 2.0); // pythagorean...
 $internal_square_margin_top: ($square_width - $internal_square_width) / 2.0; // Adjust square
 $piece_size: $internal_square_width * 0.80;
 $piece_padding: ($internal_square_width - $piece_size) / 2.0;
