@@ -62,23 +62,24 @@ Model.prototype.add_to_human_move = function(dst) {
 };
 
 
-// This is backwards.
 
-Model.prototype.heuristic = function() {
-  if (this.winner() == this.turn()) {
-    return(-99999999);
-  }
-  if (this.winner() == this.other_team()) {
+Model.prototype.heuristic = function(maximizingPlayer) {
+  let good_side = maximizingPlayer ? this.turn()       : this.other_team();
+  let bad_side  = maximizingPlayer ? this.other_team() : this.turn();
+  if (this.winner() === good_side) {
     return(99999999);
+  }
+  if (this.winner() === bad_side) {
+    return(-99999999);
   }
   let score = 0;
   for (let i = 0; i < 64; i++) {
-    if (this.square(i) == this.other_team()) {
+    if (this.square(i) == good_side) {
       score += 1;
       if (this.is_court_square(i)) {
         score += 1;
       }
-    } else if (this.square(i) == this.turn()) {
+    } else if (this.square(i) == bad_side) {
       score -= 1;
     }
   }
@@ -121,9 +122,7 @@ Model.prototype.minimax = function(depth, maximizingPlayer = true, track_moves =
     console.log("Finding move for " + this.turn());
   }
   if (depth == 0 || this.winner() > 0) {
-    //console.log(`${maximizingPlayer} ${this.turn()}`);
-
-    return this.heuristic();    
+    return this.heuristic(maximizingPlayer);    
   }
   let v = 0;
   let best = null;
@@ -233,31 +232,14 @@ Model.prototype.make_computer_move = function() {
   }
 
   move = this.minimax(3, true, true);
-  console.log(move);
-  window.move = move;
-  move.forEach((o)=> {
-    this.push_uncommitted_move(o);    
-  });
+  for (let i = 0; i < move.length; i++) {
+    // Ignore -1s from the move generation, push_uncommitted will add them back in.
+    if (move[i] > -1) {
+      this.push_uncommitted_move(move[i]);              
+    }
+  }
   this.push_move();
   this.view.draw();
-
-  return;
-  
-  while(true) {
-    moves = this.move_generator.legal_moves();
-    r = Math.floor(Math.random()*(moves.length));
-    this.push_uncommitted_move(moves[r]);
-    moves = this.move_generator.legal_moves();
-    if (moves.length > 0) {
-      break;
-    }
-    this.pop_uncommitted_move();    
-  }
-  r = Math.floor(Math.random()*(moves.length));
-  this.push_uncommitted_move(moves[r]);
-
-  this.push_move();
-  this.view.draw();  
 };
 
 
