@@ -61,25 +61,134 @@ Model.prototype.add_to_human_move = function(dst) {
   return;
 };
 
+
+// This is backwards.
+
 Model.prototype.heuristic = function() {
   if (this.winner() == this.turn()) {
-    return(99999999);
+    return(-99999999);
   }
   if (this.winner() == this.other_team()) {
-    return(-99999999);
+    return(99999999);
   }
   let score = 0;
   for (let i = 0; i < 64; i++) {
-    if (this.square(i) == this.turn()) {
+    if (this.square(i) == this.other_team()) {
       score += 1;
       if (this.is_court_square(i)) {
         score += 1;
       }
-    } else if (this.square(i) == this.other_team()) {
+    } else if (this.square(i) == this.turn()) {
       score -= 1;
     }
   }
   return(score);
+};
+
+
+/*
+
+https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
+
+01 function alphabeta(node, depth, α, β, maximizingPlayer)
+02      if depth = 0 or node is a terminal node
+03          return the heuristic value of node
+04      if maximizingPlayer
+05          v := -∞
+06          for each child of node
+07              v := max(v, alphabeta(child, depth – 1, α, β, FALSE))
+08              α := max(α, v)
+09              if β ≤ α
+10                  break (* β cut-off *)
+11          return v
+12      else
+13          v := +∞
+14          for each child of node
+15              v := min(v, alphabeta(child, depth – 1, α, β, TRUE))
+16              β := min(β, v)
+17              if β ≤ α
+18                  break (* α cut-off *)
+19          return v
+
+
+alphabeta(origin, depth, -∞, +∞, TRUE)
+
+*/
+
+
+Model.prototype.minimax = function(depth, maximizingPlayer = true, track_moves = true) {
+  if (track_moves) {
+    console.log("Finding move for " + this.turn());
+  }
+  if (depth == 0 || this.winner() > 0) {
+    //console.log(`${maximizingPlayer} ${this.turn()}`);
+
+    return this.heuristic();    
+  }
+  let v = 0;
+  let best = null;
+  if (maximizingPlayer) {
+    v = -Infinity;
+    for (let i of this.each_child(5)) {
+      let tmp = this.minimax(depth - 1, false, false);
+      if (tmp > v) {
+        if (track_moves) {
+          best = this.last_committed_move().slice(0);
+          console.log(this._state.committed_moves);
+          console.log(v);
+        }
+        v = tmp;
+      }
+    }
+  } else {
+    v = Infinity;
+    for (let i of this.each_child(5)) {
+      let tmp = this.minimax(depth - 1, true, false);
+      if (tmp < v) {
+        v = tmp;
+      }
+    }    
+  }
+  
+  if (track_moves) {
+    console.log(best);
+    console.log(v);
+    return(best);
+  } else {
+    return(v);          
+  }
+
+};
+
+Model.prototype.alpha_beta = function(depth, alpha = -Infinity, beta = Infinity, maximizingPlayer = true) {
+  if (depth == 0 || this.winner() > 0) {
+    return this.heuristic();    
+  }
+  let v = 0;
+  if (maximizingPlayer) {
+    v = -Infinity;
+    for (let i of this.each_child(5)) {
+      v = Math.max(v, this.alpha_beta(depth - 1, alpha, beta, false));
+      alpha = Math.max(alpha, v);
+      if (beta <= alpha) {
+        this.rollback_uncommitted();
+        break;
+      }      
+    }
+  } else {
+    v = Infinity;
+    for (let i of this.each_child(5)) {
+      v = Math.min(v, this.alpha_beta(depth - 1, alpha, beta, true));
+      beta = Math.min(v, beta);
+      if (beta <= alpha) {
+        this.rollback_uncommitted();
+        break;
+      }
+    }
+    
+  }
+  return(v);      
+
 };
 
 Model.prototype.handle_human_uncommitted_undo = function() {
@@ -118,6 +227,21 @@ Model.prototype.human_commit_move = function() {
 
 Model.prototype.make_computer_move = function() {
   let moves, r;
+  
+  if (this.winner() > 0) {
+    return;
+  }
+
+  move = this.minimax(3, true, true);
+  console.log(move);
+  window.move = move;
+  move.forEach((o)=> {
+    this.push_uncommitted_move(o);    
+  });
+  this.push_move();
+  this.view.draw();
+
+  return;
   
   while(true) {
     moves = this.move_generator.legal_moves();
@@ -230,12 +354,16 @@ Model.prototype.pop_move = function() {
 };
 
 
+Model.prototype.rollback_uncommitted = function() {
+  while(!this.is_start_of_turn()) {
+    this.pop_uncommitted_move();
+  }  
+}
+
 Model.prototype.undo = function() {
 
   this.pop_move();
-  while(!this.is_start_of_turn()) {
-    this.pop_uncommitted_move();
-  }
+  this.rollback_uncommitted();
   this.view.draw();
     
 };
