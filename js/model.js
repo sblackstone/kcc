@@ -228,19 +228,14 @@ Model.prototype.winner = function() {
   }
   // This should be O(1) via memoization, currently O(n)..
 
-  counts = [0, 0, 0];
-  
-  this.court_squares.forEach((i)=> {
-    counts[this.square(i)] += 1;    
-  });
-  
-  if (counts[1] == 0) {
+  if (this._state.court_tracker[1] == 0) {
     return(2);
   }
-  if (counts[2] == 0) {
+
+  if (this._state.court_tracker[2] == 0) {
     return(1);
   }
-  
+
   return(0);
 
 };
@@ -394,6 +389,15 @@ Model.prototype.turn = function() {
 };
 
 Model.prototype.set_square = function(i, val) {
+  // Keep track of how many pieces are in center for fast win-condition checks..
+  if (this.is_court_square(i)) {
+    if (this.square(i) > 0 && val === 0) {
+      this._state.court_tracker[this.square(i)] -= 1;
+    };
+    if (this.square(i) == 0 && val > 0) {
+      this._state.court_tracker[val] += 1;
+    };
+  };
   this._state.squares[i] = val;  
 };
 
@@ -410,6 +414,7 @@ Model.prototype.initialize_state = function() {
   this._state.uncommitted_move = [];
   this._state.committed_moves  = [];
   this._state.error_message    = null;
+  this._state.court_tracker    = [0,0,0];
   this._state.squares          = [ 1, 2, 1, 2, 1, 2, 1, 2,
                                    2, 1, 2, 1, 2, 1, 2, 1, 
                                    1, 2, 0, 0, 0, 0, 1, 2,

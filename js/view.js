@@ -103,7 +103,6 @@ View.prototype.highlight_legal_move = function(i) {
 };
 
 View.prototype.highlight_last_move = function(i) {
-  console.log(`Highlighting last move ${i}`);
   this.elements.squares[i].addClass('highlight-last-move');  
 };
 
