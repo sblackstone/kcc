@@ -111,45 +111,7 @@ https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
 18                  break (* α cut-off *)
 19          return v
 
-
-alphabeta(origin, depth, -∞, +∞, TRUE)
-
 */
-
-
-Model.prototype.minimax = function(depth, maximizingPlayer = true, track_moves = true) {
-  if (track_moves) {
-    console.log("Finding move for " + this.turn());
-  }
-  if (depth == 0 || this.winner() > 0) {
-    return this.heuristic(maximizingPlayer);    
-  }
-  let v = 0;
-  let best = null;
-  if (maximizingPlayer) {
-    v = -Infinity;
-    for (let i of this.each_child(5)) {
-      let tmp = this.minimax(depth - 1, false, false);
-      if (tmp > v) {
-        if (track_moves) {
-          best = this.last_committed_move().slice(0);
-        }
-        v = tmp;
-      }
-    }
-  } else {
-    v = Infinity;
-    for (let i of this.each_child(5)) {
-      let tmp = this.minimax(depth - 1, true, false);
-      if (tmp < v) {
-        v = tmp;
-      }
-    }    
-  }
-  
-  return track_moves ? best : v;
-  
-};
 
 
 Model.prototype.alpha_beta = function(depth, alpha = -Infinity, beta = Infinity, maximizingPlayer = true, track_moves = true) {
@@ -164,6 +126,7 @@ Model.prototype.alpha_beta = function(depth, alpha = -Infinity, beta = Infinity,
   if (maximizingPlayer) {
     v = -Infinity;
     for (let i of this.each_child(5)) {
+      // We don't do break here to allow each_child to unwind the move set
       if (beta > alpha) {
         let tmp = this.alpha_beta(depth - 1, alpha, beta, false, false);
         if (tmp > v) {
@@ -178,6 +141,7 @@ Model.prototype.alpha_beta = function(depth, alpha = -Infinity, beta = Infinity,
   } else {
     v = Infinity;
     for (let i of this.each_child(5)) {
+      // We don't do break here to allow each_child to unwind the move set
       if (beta > alpha) {
         let tmp = this.alpha_beta(depth - 1, alpha, beta, true, false);
         if (tmp < v) {
