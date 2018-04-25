@@ -13,6 +13,9 @@ html, body {
   box-sizing: content-box;
   margin-top: 1vh; }
 
+.highlight-last-move .internal-square {
+  background-color: purple !important; }
+
 .square {
   width: 10vmin;
   height: 10vmin;
@@ -22,11 +25,7 @@ html, body {
   background-color: yellow !important; }
 
 .highlight-legal-move .internal-square {
-  background-color: yellow !important; }
-
-.highlight-last-move .internal-square {
-  background-color: purple !important;
-}
+  background-color: purple !important; }
 
 .court-square {
   background-color: #204339 !important; }
@@ -61,19 +60,16 @@ html, body {
 .green-piece .piece {
   background-color: #2b3b35; }
 
+#current-turn.red {
+  color: red; }
+
+#current-turn.green {
+  color: green; }
+
 #current-move {
   color: #fff;
   display: inline-block;
   padding: 15px; }
-  
-#current-turn.red {
-  color: red;
-}
-
-#current-turn.green {
-  color: green;
-}
-
 
 #error-messages {
   margin-top: 5px;

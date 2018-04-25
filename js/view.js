@@ -19,11 +19,23 @@ View.prototype.draw = function() {
   this.draw_last_move();
   this.draw_errors();
   this.draw_turn();
+  this.draw_winner();
+};
+
+
+View.prototype.draw_winner = function() {
+  if (this.model.winner() == 1) {
+    alert("Red Wins!");
+  }; 
+  if (this.model.winner() == 2) {
+    alert("Green Wins!");
+  };
+
 };
 
 View.prototype.draw_board = function() {
   for (let i = 0; i < 64; i++) {
-    this.elements.squares[i].removeClass('red-piece').removeClass('green-piece');
+    this.elements.squares[i].removeClass('red-piece green-piece');
     if (this.model.square(i) == 1) {
       this.elements.squares[i].addClass('red-piece');
     }
@@ -42,7 +54,10 @@ View.prototype.draw_errors = function() {
 };
 
 View.prototype.draw_turn = function() {
-  this.elements.current_turn.removeClass("red green");
+  this.elements.current_turn.removeClass("red green").html("");
+  if (this.model.winner() > 0) {
+        
+  };
   this.elements.current_turn.html(this.model.turn() == 1 ? "Red's Turn" : "Green's Turn");
   this.elements.current_turn.addClass(this.model.turn() == 1 ? "red" : "green");
 };

@@ -234,7 +234,8 @@ Model.prototype.make_computer_move = function() {
     return;
   }
 
-  move = this.alpha_beta(4);
+  move = this.alpha_beta(5);
+  console.log(`Computer Move chosen: ${move}`);
   console.log(move);
   for (let i = 0; i < move.length; i++) {
     // Ignore -1s from the move generation, push_uncommitted will add them back in.

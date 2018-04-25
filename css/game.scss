@@ -35,10 +35,13 @@ html, body {
   width: #{$board_width}vmin;  
   height: #{$board_width}vmin;  
   font-size: 0 !important;
-  background: #eaeaea; // url('./img/marble.jpg') top left no-repeat;
   border: 10px solid rgb(32,67,57);
   box-sizing: content-box;
   margin-top: 1vh;
+}
+
+.highlight-last-move .internal-square {
+  background-color: purple !important;
 }
 
 .square {
@@ -105,6 +108,13 @@ html, body {
   }
 };
 
+#current-turn.red {
+  color: red;
+}
+
+#current-turn.green {
+  color: green;
+}
 
 #current-move {
   color: #fff;
