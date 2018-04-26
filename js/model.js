@@ -8,25 +8,27 @@ const Model = function() {
 };
 
 
-Model.prototype.each_child = function*(depth) {
+Model.prototype.each_child = function*(depth, last_src) {
   if (depth === 0) {
     return;
   }
-
   let legal_moves = this.move_generator.legal_moves();
 
   for (let i = 0; i < legal_moves.length; i++) {
     let move = legal_moves[i];
-    this.push_uncommitted_move(move);
+    if (move != last_src) {
+      let new_last_src = this.last_uncommitted_dst();
+      this.push_uncommitted_move(move);
 
-    if (!this.is_first_piece_destination()) {
-      this.push_move();
-      yield this._state.uncommitted_move;      
-      this.pop_move();
+      if (!this.is_first_piece_destination()) {
+        this.push_move();
+        yield depth;      
+        this.pop_move();
 
+      }
+      yield *this.each_child(depth - 1, new_last_src);    
+      this.pop_uncommitted_move();            
     }
-    yield *this.each_child(depth - 1);    
-    this.pop_uncommitted_move();      
   }
   
 };
