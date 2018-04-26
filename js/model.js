@@ -1,15 +1,3 @@
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function blarg() {
-  for (i of window.model.each_child(5)) {
-    window.view.draw();
-    await sleep(1500);
-  };
-}
-
-
 const Model = function() {
   console.log("Initializing Model");
   this.initialize_state();
