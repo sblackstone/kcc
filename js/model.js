@@ -17,15 +17,18 @@ Model.prototype.each_child = function*(depth, last_src) {
   for (let i = 0; i < legal_moves.length; i++) {
     let move = legal_moves[i];
     if (move != last_src) {
+      // Prevent pointless tree loops...
       let new_last_src = this.last_uncommitted_dst();
       this.push_uncommitted_move(move);
 
+      // Any complete move that has a src in the dst should be yielded.
       if (!this.is_first_piece_destination()) {
         this.push_move();
         yield depth;      
         this.pop_move();
 
       }
+      // Recurse on the position..
       yield *this.each_child(depth - 1, new_last_src);    
       this.pop_uncommitted_move();            
     }
