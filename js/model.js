@@ -66,10 +66,10 @@ Model.prototype.heuristic = function(maximizingPlayer) {
   let bad_side  = maximizingPlayer ? this.other_team() : this.turn();
 
   if (this.winner() === good_side) {
-    return(99999999);
+    return(Infinity);
   }
   if (this.winner() === bad_side) {
-    return(-99999999);
+    return(-Infinity);
   }
 
   let score = 0;
@@ -400,10 +400,10 @@ Model.prototype.turn = function() {
 Model.prototype.set_square = function(i, val) {
   // Keep track of how many pieces are in center for fast win-condition checks..
   if (this.is_court_square(i)) {
-    if (this.is_occupied() && val === 0) {
+    if (this.is_occupied(i) && val === 0) {
       this._state.court_tracker[this.square(i)] -= 1;
     };
-    if (this.square(i) == 0 && val > 0) {
+    if (this.square(i) === 0 && val > 0) {
       this._state.court_tracker[val] += 1;
     };
   };
