@@ -59,21 +59,27 @@ Model.prototype.add_to_human_move = function(dst) {
 Model.prototype.heuristic = function(maximizingPlayer) {
   let good_side = maximizingPlayer ? this.turn()       : this.other_team();
   let bad_side  = maximizingPlayer ? this.other_team() : this.turn();
+
   if (this.winner() === good_side) {
     return(99999999);
   }
   if (this.winner() === bad_side) {
     return(-99999999);
   }
+
   let score = 0;
   for (let i = 0; i < 64; i++) {
+    
     if (this.square(i) == good_side) {
       score += 1;
       if (this.is_court_square(i)) {
         score += 1;
       }
     } else if (this.square(i) == bad_side) {
-      score -= 1;
+      score -= 1.5;
+      if (this.is_court_square(i)) {
+        score -= 1.25;
+      }
     }
   }
   return(score);
@@ -346,6 +352,11 @@ Model.prototype.is_empty = function(i) {
   return this.square(i) === 0;
 };
 
+Model.prototype.is_occupied = function(i) {
+  return this.square(i) > 0;
+};
+
+
 Model.prototype.is_human_turn = function() {
   return(this.turn() === this.human_team());
 };
@@ -384,7 +395,7 @@ Model.prototype.turn = function() {
 Model.prototype.set_square = function(i, val) {
   // Keep track of how many pieces are in center for fast win-condition checks..
   if (this.is_court_square(i)) {
-    if (this.square(i) > 0 && val === 0) {
+    if (this.is_occupied() && val === 0) {
       this._state.court_tracker[this.square(i)] -= 1;
     };
     if (this.square(i) == 0 && val > 0) {
