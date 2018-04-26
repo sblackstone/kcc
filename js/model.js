@@ -45,8 +45,13 @@ Model.prototype.add_to_human_move = function(dst) {
   let src = this.last_uncommitted_dst();
   if (this.move_generator.is_legal_piece_move(src, dst)) {
     this.push_uncommitted_move(dst);
+  } else if (this.is_first_piece_destination() && this.square(dst) === this.turn()){
+    // If the player changed which first piece they're going to use
+    // don't make them click undo.
+    this.pop_uncommitted_move();
+    this.push_uncommitted_move(dst);
   } else {
-    this.set_error("Not a legal move");
+    this.set_error("Not a legal move");    
   }
   
   this.view.draw();
