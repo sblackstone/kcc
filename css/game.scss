@@ -15,7 +15,7 @@
 
 
 
-$board_width: 67; // VMin..
+$board_width: 85; // VMin..
 $square_width: $board_width / 8.0; // 8 squares.
 $internal_square_width: sqrt($square_width*$square_width / 2.0); // pythagorean...
 $internal_square_margin_top: ($square_width - $internal_square_width) / 2.0; // Adjust square
@@ -28,7 +28,7 @@ html, body {
 
 #game {
   padding-top: 1vmin;
-  width: 100vmin;
+  width: #{$board_width}vmin;
   height: 100vmin;
   display: block;
   margin: auto;
@@ -41,11 +41,8 @@ html, body {
 
 #sidebar {
   background-color: rgb(32,67,57);
-  width: 28vmin;
+  width: #{$board_width}vmin;  
   color: #043325;
-  height: #{$board_width}vmin;
-  display: inline-block;
-  vertical-align: top;
 }
 
 #board {
@@ -140,6 +137,7 @@ html, body {
 }
 
 #error-messages {
+  display: none;
   margin-top: 5px;
   min-height: 26px;
   font-weight: bold;

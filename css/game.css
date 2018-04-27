@@ -3,7 +3,7 @@ html, body {
 
 #game {
   padding-top: 1vmin;
-  width: 100vmin;
+  width: 85vmin;
   height: 100vmin;
   display: block;
   margin: auto;
@@ -14,20 +14,17 @@ html, body {
 
 #sidebar {
   background-color: #204339;
-  width: 28vmin;
-  color: #043325;
-  height: 67vmin;
-  display: inline-block;
-  vertical-align: top; }
+  width: 85vmin;
+  color: #043325; }
 
 #board {
-  width: 67vmin;
-  height: 67vmin;
+  width: 85vmin;
+  height: 85vmin;
   display: inline-block; }
 
 .square {
-  width: 8.375vmin;
-  height: 8.375vmin;
+  width: 10.625vmin;
+  height: 10.625vmin;
   display: inline-block; }
 
 .highlight-last-move .internal-square {
@@ -43,13 +40,13 @@ html, body {
 
 .internal-square {
   margin: 0 auto;
-  width: 5.9220192924vmin;
-  height: 5.9220192924vmin;
+  width: 7.5130095501vmin;
+  height: 7.5130095501vmin;
   transform: rotate(45deg);
   background-color: #cfb986;
   border: 1px solid orange;
   position: relative;
-  margin-top: 1.2264903538vmin;
+  margin-top: 1.5559952249vmin;
   font-size: 11px; }
 
 .rank:last-child .square:last-child {
@@ -57,10 +54,10 @@ html, body {
 
 .piece {
   position: absolute;
-  top: 0.5922019292vmin;
-  left: 0.5922019292vmin;
-  height: 4.7376154339vmin;
-  width: 4.7376154339vmin;
+  top: 0.751300955vmin;
+  left: 0.751300955vmin;
+  height: 6.0104076401vmin;
+  width: 6.0104076401vmin;
   background-color: transparent;
   border-radius: 50%;
   display: inline-block; }
@@ -86,6 +83,7 @@ html, body {
   padding: 15px; }
 
 #error-messages {
+  display: none;
   margin-top: 5px;
   min-height: 26px;
   font-weight: bold;
