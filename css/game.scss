@@ -15,7 +15,7 @@
 
 
 
-$board_width: 80; // VH..
+$board_width: 67; // VMin..
 $square_width: $board_width / 8.0; // 8 squares.
 $internal_square_width: sqrt($square_width*$square_width / 2.0); // pythagorean...
 $internal_square_margin_top: ($square_width - $internal_square_width) / 2.0; // Adjust square
@@ -27,22 +27,32 @@ html, body {
 }
 
 #game {
-  margin: 0 auto;
-  width: #{$board_width}vmin;
+  padding-top: 1vmin;
+  width: 100vmin;
+  height: 100vmin;
+  display: block;
+  margin: auto;
+  clear: both;
+  > * {
+    box-sizing: content-box;
+    border: 0.75vmin solid rgb(32,67,57);    
+  }
+}
+
+#sidebar {
+  background-color: rgb(32,67,57);
+  width: 28vmin;
+  height: #{$board_width}vmin;
+  display: inline-block;
+  vertical-align: top;
 }
 
 #board {
   width: #{$board_width}vmin;  
   height: #{$board_width}vmin;  
-  font-size: 0 !important;
-  border: 10px solid rgb(32,67,57);
-  box-sizing: content-box;
-  margin-top: 1vh;
+  display: inline-block;
 }
 
-.highlight-last-move .internal-square {
-  background-color: purple !important;
-}
 
 .square {
   width: #{$square_width}vmin;
@@ -50,14 +60,15 @@ html, body {
   display: inline-block;
 }
 
+.highlight-last-move .internal-square {
+  background-color: rgba(241, 192, 245, 0.5) !important;
+  border-color: rgba(241, 192, 245, 1.0) !important;
+}
+
 .highlight .internal-square {
-  background-color: yellow !important;
+  background-color: rgba(220, 241, 85, 0.5) !important;
+  border-color: rgba(220, 241, 85, 1.0) !important;
 }
-
-.highlight-legal-move .internal-square {
-  background-color: purple !important;
-}
-
 
 .court-square {
   background-color: rgb(32,67,57) !important;

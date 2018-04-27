@@ -2,43 +2,53 @@ html, body {
   background-color: #000; }
 
 #game {
-  margin: 0 auto;
-  width: 80vmin; }
+  padding-top: 1vmin;
+  width: 100vmin;
+  height: 100vmin;
+  display: block;
+  margin: auto;
+  clear: both; }
+  #game > * {
+    box-sizing: content-box;
+    border: 0.75vmin solid #204339; }
+
+#sidebar {
+  background-color: #204339;
+  width: 28vmin;
+  height: 67vmin;
+  display: inline-block;
+  vertical-align: top; }
 
 #board {
-  width: 80vmin;
-  height: 80vmin;
-  font-size: 0 !important;
-  border: 10px solid #204339;
-  box-sizing: content-box;
-  margin-top: 1vh; }
-
-.highlight-last-move .internal-square {
-  background-color: purple !important; }
-
-.square {
-  width: 10vmin;
-  height: 10vmin;
+  width: 67vmin;
+  height: 67vmin;
   display: inline-block; }
 
-.highlight .internal-square {
-  background-color: yellow !important; }
+.square {
+  width: 8.375vmin;
+  height: 8.375vmin;
+  display: inline-block; }
 
-.highlight-legal-move .internal-square {
-  background-color: purple !important; }
+.highlight-last-move .internal-square {
+  background-color: rgba(241, 192, 245, 0.5) !important;
+  border-color: #f1c0f5 !important; }
+
+.highlight .internal-square {
+  background-color: rgba(220, 241, 85, 0.5) !important;
+  border-color: #dcf155 !important; }
 
 .court-square {
   background-color: #204339 !important; }
 
 .internal-square {
   margin: 0 auto;
-  width: 7.0710678119vmin;
-  height: 7.0710678119vmin;
+  width: 5.9220192924vmin;
+  height: 5.9220192924vmin;
   transform: rotate(45deg);
   background-color: #cfb986;
   border: 1px solid orange;
   position: relative;
-  margin-top: 1.4644660941vmin;
+  margin-top: 1.2264903538vmin;
   font-size: 11px; }
 
 .rank:last-child .square:last-child {
@@ -46,10 +56,10 @@ html, body {
 
 .piece {
   position: absolute;
-  top: 0.7071067812vmin;
-  left: 0.7071067812vmin;
-  height: 5.6568542495vmin;
-  width: 5.6568542495vmin;
+  top: 0.5922019292vmin;
+  left: 0.5922019292vmin;
+  height: 4.7376154339vmin;
+  width: 4.7376154339vmin;
   background-color: transparent;
   border-radius: 50%;
   display: inline-block; }
