@@ -42,6 +42,7 @@ html, body {
 #sidebar {
   background-color: rgb(32,67,57);
   width: 28vmin;
+  color: #043325;
   height: #{$board_width}vmin;
   display: inline-block;
   vertical-align: top;
@@ -119,6 +120,11 @@ html, body {
   }
 };
 
+
+#current-turn {
+  display: none;
+}
+
 #current-turn.red {
   color: red;
 }
@@ -136,5 +142,6 @@ html, body {
 #error-messages {
   margin-top: 5px;
   min-height: 26px;
-  color: red;
+  font-weight: bold;
+  color: rgb(0,17,12);
 }

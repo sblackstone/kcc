@@ -15,6 +15,7 @@ html, body {
 #sidebar {
   background-color: #204339;
   width: 28vmin;
+  color: #043325;
   height: 67vmin;
   display: inline-block;
   vertical-align: top; }
@@ -70,6 +71,9 @@ html, body {
 .green-piece .piece {
   background-color: #2b3b35; }
 
+#current-turn {
+  display: none; }
+
 #current-turn.red {
   color: red; }
 
@@ -84,6 +88,7 @@ html, body {
 #error-messages {
   margin-top: 5px;
   min-height: 26px;
-  color: red; }
+  font-weight: bold;
+  color: #00110c; }
 
 /*# sourceMappingURL=game.css.map */
