@@ -33,6 +33,7 @@ html, body {
 
 #modal {
   background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
   position: absolute;
   width: 59.5vmin;
   height: 59.5vmin;

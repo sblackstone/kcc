@@ -63,6 +63,7 @@ html, body {
 
 #modal {
   background: rgba(255,255,255,0.95);
+  padding: 25px;
   position: absolute;
   width: #{$board_width*0.70}vmin;
   height: #{$board_width*0.70}vmin;
@@ -70,7 +71,6 @@ html, body {
   left: #{$board_width*0.15}vmin;
   border: 1vmin solid rgba(0,0,0, 0.80);
   z-index: 3;
-
 }
 
 .square {

@@ -16,6 +16,7 @@ const View = function(model) {
 };
 
 View.prototype.draw = function() { 
+  this.hide_modal();
   this.draw_board();
   this.draw_current_move();
   this.draw_last_move();
@@ -26,10 +27,8 @@ View.prototype.draw = function() {
 };
 
 View.prototype.draw_modal = function() {
-  if (!this.model.is_game_started()) {
+  if (!this.model.is_game_started() || (this.model.is_start_of_turn() && this.model.winner() > 0)) {
     this.show_modal();
-  } else {
-    this.hide_modal();
   }
 };
 
@@ -44,7 +43,6 @@ View.prototype.draw_winner = function() {
       if (winner === 2) {
         this.elements.modal_message.html("Green Wins!");
       };
-      this.show_modal();    
     }    
   }
 };
