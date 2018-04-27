@@ -63,7 +63,7 @@ View.prototype.draw_turn = function() {
 };
 
 View.prototype.draw_current_move = function() {
-  this.elements.current_move.html(JSON.stringify(this.model.uncommitted_move()));
+  this.elements.current_move.html(this.model.uncommitted_move().join(", "));
   $('.highlight').removeClass('highlight');
   $('.highlight-legal-move').removeClass('highlight-legal-move');
   

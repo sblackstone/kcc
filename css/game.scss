@@ -79,10 +79,10 @@ html, body {
   height: #{$internal_square_width}vmin;
   transform: rotate(45deg);
   background-color: rgb(207,185, 134);
-  border: 1px solid orange;
+  border: 0.15vmin solid orange;
   position: relative;
   margin-top: #{$internal_square_margin_top}vmin; 
-  font-size: 11px;
+  font-size: 1.5vmin;
   
 }
 
@@ -133,13 +133,10 @@ html, body {
 #current-move {
   color: #fff;
   display: inline-block;
-  padding: 15px;
 }
 
 #error-messages {
   display: none;
-  margin-top: 5px;
-  min-height: 26px;
   font-weight: bold;
   color: rgb(0,17,12);
 }
