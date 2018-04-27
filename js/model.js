@@ -397,6 +397,10 @@ Model.prototype.turn = function() {
   return(this._state.turn);
 };
 
+Model.prototype.is_game_started = function() {
+  return(this._state.playing);
+};
+
 Model.prototype.set_square = function(i, val) {
   // Keep track of how many pieces are in center for fast win-condition checks..
   if (this.is_court_square(i)) {
@@ -414,11 +418,20 @@ Model.prototype.square = function(i) {
   return this._state.squares[i];  
 };
 
+Model.prototype.start_game = function(human_team) {
+  this.initialize_state(human_team);
+  this._state.playing = true;
+  this.view.draw();
+  if (!this.is_human_turn()) {
+    this.make_computer_move();
+  }
+};
 
-Model.prototype.initialize_state = function() {
+Model.prototype.initialize_state = function(human_team) {
   this._state                  = {};
+  this._state.playing          = false;
   this._state.moves            = [];
-  this._state.human_team       = 1;
+  this._state.human_team       = human_team;
   this._state.turn             = 1;
   this._state.uncommitted_move = [];
   this._state.committed_moves  = [];

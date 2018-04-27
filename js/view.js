@@ -8,6 +8,8 @@ const View = function(model) {
   this.elements.errors = $('#error-messages');
   this.elements.current_move = $('#current-move');
   this.elements.current_turn = $('#current-turn');
+  this.elements.modal_message = $('#modal-message');
+  this.elements.modal_container = $('#modal-container');
   this.elements.squares = [];
   this.init_squares();
   this.draw();  
@@ -20,17 +22,31 @@ View.prototype.draw = function() {
   this.draw_errors();
   this.draw_turn();
   this.draw_winner();
+  this.draw_modal();
+};
+
+View.prototype.draw_modal = function() {
+  if (!this.model.is_game_started()) {
+    this.show_modal();
+  } else {
+    this.hide_modal();
+  }
 };
 
 
 View.prototype.draw_winner = function() {
-  if (this.model.winner() == 1) {
-    alert("Red Wins!");
-  }; 
-  if (this.model.winner() == 2) {
-    alert("Green Wins!");
-  };
-
+  if (this.model.is_start_of_turn()) {
+    let winner = this.model.winner();
+    if (winner > 0) {
+      if (winner === 1) {
+        this.elements.modal_message.html("Red Wins!");
+      }; 
+      if (winner === 2) {
+        this.elements.modal_message.html("Green Wins!");
+      };
+      this.show_modal();    
+    }    
+  }
 };
 
 View.prototype.draw_board = function() {
@@ -107,7 +123,13 @@ View.prototype.highlight_last_move = function(i) {
 };
 
 
+View.prototype.show_modal = function() {
+  this.elements.modal_container.show();
+}
 
+View.prototype.hide_modal = function() {
+  this.elements.modal_container.hide();
+}
 
 
 View.prototype.init_squares = function() {

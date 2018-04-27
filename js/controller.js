@@ -19,6 +19,12 @@ Controller.prototype.init_handlers = function() {
     this.model.human_commit_move();
   });
   
+  $('#new-game').on("click", (o)=> {
+    console.log("NEW GAME!");
+    let human_color = parseFloat($('#human-color').val());
+    this.model.start_game(human_color);
+  });
+  
 };
 
 

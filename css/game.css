@@ -18,9 +18,28 @@ html, body {
   color: #043325; }
 
 #board {
+  position: relative;
   width: 85vmin;
   height: 85vmin;
   display: inline-block; }
+
+#modal-container {
+  position: absolute;
+  display: none;
+  width: 85vmin;
+  height: 85vmin;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+#modal {
+  background: rgba(255, 255, 255, 0.95);
+  position: absolute;
+  width: 59.5vmin;
+  height: 59.5vmin;
+  top: 12.75vmin;
+  left: 12.75vmin;
+  border: 1vmin solid rgba(0, 0, 0, 0.8);
+  z-index: 3; }
 
 .square {
   width: 10.625vmin;
