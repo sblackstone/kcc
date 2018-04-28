@@ -27,6 +27,7 @@ html, body {
 }
 
 #game {
+  perspective: 1000px;
   padding-top: 1vmin;
   width: #{$board_width}vmin;
   height: 100vmin;
@@ -46,6 +47,7 @@ html, body {
 }
 
 #board {
+  transform: rotateX(0deg);
   position: relative;
   width: #{$board_width}vmin;  
   height: #{$board_width}vmin;  
