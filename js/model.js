@@ -202,7 +202,7 @@ Model.prototype.make_computer_move = function() {
     return;
   }
 
-  move = this.alpha_beta(5);
+  move = this.alpha_beta(this._state.computer_level);
   console.log(`Computer Move chosen: ${move}`);
   console.log(move);
   for (let i = 0; i < move.length; i++) {
@@ -418,8 +418,8 @@ Model.prototype.square = function(i) {
   return this._state.squares[i];  
 };
 
-Model.prototype.start_game = function(human_team) {
-  this.initialize_state(human_team);
+Model.prototype.start_game = function(human_team, computer_level) {
+  this.initialize_state(human_team, computer_level);
   this._state.playing = true;
   this.view.draw();
   if (!this.is_human_turn()) {
@@ -427,8 +427,9 @@ Model.prototype.start_game = function(human_team) {
   }
 };
 
-Model.prototype.initialize_state = function(human_team) {
+Model.prototype.initialize_state = function(human_team = 1, computer_level = 1) {
   this._state                  = {};
+  this._state.computer_level   = computer_level;
   this._state.playing          = false;
   this._state.moves            = [];
   this._state.human_team       = human_team;

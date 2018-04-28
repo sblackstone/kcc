@@ -22,7 +22,9 @@ Controller.prototype.init_handlers = function() {
   $('#new-game').on("click", (o)=> {
     console.log("NEW GAME!");
     let human_color = parseFloat($('#human-color').val());
-    this.model.start_game(human_color);
+    let computer_level = parseFloat($('#computer-level').val());
+
+    this.model.start_game(human_color, computer_level);
   });
   
 };
