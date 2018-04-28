@@ -19,6 +19,28 @@
 
   </head>
   <body>
+    <div id='modal-container'>
+      <div id='modal'>
+        <div id='modal-message'></div>
+        <select class='form-control' id='human-color'>
+          <option value=1>Red</option>
+          <option value=2>Green</option>              
+        </select>
+        <select class='form-control' id='computer-level'>
+          <option value=1>Beginner</option>
+          <option value=3 selected=selected>Normal</option>              
+          <option value=4>Difficult</option>              
+          <option value=6>Extreme</option>              
+        </select>
+
+        <input type="button" class='btn btn-primary btn-sm' id="new-game" value="Start Game">
+
+
+        
+                    
+      </div>
+    </div>
+    
     <div id='game'>
       <div id='sidebar'>
         <ul id='error-messages'></ul>
@@ -28,27 +50,6 @@
         <div id='current-turn'></div>
       </div>
       <div id='board'>
-        <div id='modal-container'>
-          <div id='modal'>
-            <div id='modal-message'></div>
-            <select class='form-control' id='human-color'>
-              <option value=1>Red</option>
-              <option value=2>Green</option>              
-            </select>
-            <select class='form-control' id='computer-level'>
-              <option value=1>Beginner</option>
-              <option value=3 selected=selected>Normal</option>              
-              <option value=4>Difficult</option>              
-              <option value=6>Extreme</option>              
-            </select>
-
-            <input type="button" class='btn btn-primary btn-sm' id="new-game" value="Start Game">
-
-
-            
-                        
-          </div>
-        </div>
       </div>
     </div>
   </body>
