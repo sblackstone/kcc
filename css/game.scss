@@ -44,10 +44,11 @@ html, body {
   background-color: rgb(32,67,57);
   width: #{$board_width}vmin;  
   color: #043325;
+  transform: translateY(125px) translateZ(250px)
 }
 
 #board {
-  transform: rotateX(0deg);
+  transform: rotateX(25deg);
   position: relative;
   width: #{$board_width}vmin;  
   height: #{$board_width}vmin;  

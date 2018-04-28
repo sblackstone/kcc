@@ -16,10 +16,11 @@ html, body {
 #sidebar {
   background-color: #204339;
   width: 85vmin;
-  color: #043325; }
+  color: #043325;
+  transform: translateY(125px) translateZ(250px); }
 
 #board {
-  transform: rotateX(0deg);
+  transform: rotateX(25deg);
   position: relative;
   width: 85vmin;
   height: 85vmin;
