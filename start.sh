@@ -1,4 +1,4 @@
 #!/usr/bin/env bash 
 
-sass --watch ./css &
+sh ./watch.sh
 docker-compose up
