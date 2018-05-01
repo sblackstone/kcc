@@ -1,5 +1,4 @@
 html, body {
-  perspective: 100vmin;
   background-color: #000; }
 
 #game {
@@ -16,11 +15,9 @@ html, body {
 #sidebar {
   background-color: #204339;
   width: 85vmin;
-  color: #043325;
-  transform: translateY(125px) translateZ(250px); }
+  color: #043325; }
 
 #board {
-  transform: rotateX(25deg);
   position: relative;
   width: 85vmin;
   height: 85vmin;

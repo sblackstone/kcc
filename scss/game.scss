@@ -23,7 +23,6 @@ $piece_size: $internal_square_width * 0.80;
 $piece_padding: ($internal_square_width - $piece_size) / 2.0;
 
 html, body {
-  perspective: 100vmin;
   background-color: #000;
 }
 
@@ -44,11 +43,9 @@ html, body {
   background-color: rgb(32,67,57);
   width: #{$board_width}vmin;  
   color: #043325;
-  transform: translateY(125px) translateZ(250px)
 }
 
 #board {
-  transform: rotateX(25deg);
   position: relative;
   width: #{$board_width}vmin;  
   height: #{$board_width}vmin;  
