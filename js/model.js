@@ -217,21 +217,23 @@ Model.prototype.is_uncommitted_slide = function() {
   return(false);
 }
 
-Model.prototype.winner = function() {
+
+Model.prototype.set_winner = function() {
+
+  this._state.winner = 0;
+
+
   if (this.is_first_turn()) {
-    return(0);
+    return;
   }
-  // This should be O(1) via memoization, currently O(n)..
 
   if (this._state.court_tracker[1] == 0) {
-    return(2);
+    this._state.winner = 2;
   }
 
   if (this._state.court_tracker[2] == 0) {
-    return(1);
+    this._state.winner = 1;
   }
-
-  return(0);
 
 };
 
@@ -324,6 +326,15 @@ Model.prototype.move_piece = function(src,dst) {
 
 // Primatives.
 
+Model.prototype.court_tracker = function(i) {
+  return(this._state.court_tracker[i]);
+};
+
+Model.prototype.square_tracker = function(i) {
+  return(this._state.square_tracker[i]);
+};
+
+
 Model.prototype.is_start_of_turn = function() {
   return(this._state.uncommitted_move.length === 0);  
 };
@@ -372,6 +383,11 @@ Model.prototype.last_uncommitted_dst = function() {
   return(this._state.uncommitted_move[this._state.uncommitted_move.length - 1]);
 };
 
+Model.prototype.winner = function() {
+  return(this._state.winner);
+};
+
+
 Model.prototype.other_team = function() {
   return this.turn() == 1 ? 2 : 1;  
 };
@@ -410,6 +426,7 @@ Model.prototype.set_square = function(i, val) {
   };
 
   this._state.squares[i] = val;  
+  this.set_winner();
 };
 
 Model.prototype.square = function(i) {
@@ -432,6 +449,7 @@ Model.prototype.initialize_state = function(human_team = 1, computer_level = 1) 
   this._state.moves            = [];
   this._state.human_team       = human_team;
   this._state.turn             = 1;
+  this._state.winner           = 0;
   this._state.uncommitted_move = [];
   this._state.committed_moves  = [];
   this._state.error_message    = null;
