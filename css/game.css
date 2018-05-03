@@ -42,7 +42,8 @@ html, body {
 .square {
   width: 10.625vmin;
   height: 10.625vmin;
-  display: inline-block; }
+  display: inline-block;
+  float: left; }
 
 .highlight-last-move .internal-square {
   background-color: rgba(241, 192, 245, 0.5) !important;

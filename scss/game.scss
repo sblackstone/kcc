@@ -76,6 +76,7 @@ html, body {
   width: #{$square_width}vmin;
   height: #{$square_width}vmin;
   display: inline-block;
+  float: left;
 }
 
 .highlight-last-move .internal-square {
@@ -99,6 +100,7 @@ html, body {
   height: #{$internal_square_width}vmin;
   transform: rotate(45deg);
   background-color: rgb(207,185, 134);
+
   border: 0.15vmin solid orange;
   position: relative;
   margin-top: #{$internal_square_margin_top}vmin; 

@@ -44,10 +44,10 @@ View.prototype.draw_menu = function() {
 View.prototype.draw_winner = function() {
   if (this.model.is_start_of_turn()) {
     if (this.model.winner() === 1) {
-      alert("Red Wins!");
+      setTimeout(function() { alert('Red Wins'); }, 25);
     }; 
     if (this.model.winner() === 2) {
-      alert("Green Wins!");
+      setTimeout(function() { alert('Green Wins'); }, 25);
     };
   }
 };
@@ -130,7 +130,7 @@ View.prototype.init_squares = function() {
     for (let j = 0; j < 8; j++) {
       let square_number = i*8 + j;
       let square = $('<div>').addClass('square').data("square", square_number);
-      let internal_square = $('<div>').html(square_number).addClass('internal-square').appendTo(square);      
+      let internal_square = $('<div>').addClass('internal-square').appendTo(square);      
       let piece = $('<div>').addClass('piece').appendTo(internal_square);
       this.elements.squares[square_number] = square;
       if (this.model.is_court_square(square_number)) {
