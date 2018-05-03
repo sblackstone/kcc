@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Kcc
+    %link{:href => "./css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "./css/background.css", :rel => "stylesheet"}/
+    %link{:href => "./css/game.css", :rel => "stylesheet"}/
+    %script{:src => "./js/jquery-3.2.1.slim.min.js"}
+    %script{:src => "./js/bootstrap.min.js"}
+    %script{:src => "./js/controller.js"}
+    %script{:src => "./js/model.js"}
+    %script{:src => "./js/view.js"}
+    %script{:src => "./js/move_generator.js"}
+  %body
+    #game
+      #sidebar
+        #new-game-menu
+          .form-inline
+            .form-row
+              .form-group
+                %label I'll Play
+                %select#human-color.form-control
+                  %option{:value => "1"} Red
+                  %option{:value => "2"} Green
+              .form-group
+                %label Difficulty
+                %select#computer-level.form-control
+                  %option{:value => "1"} Beginner
+                  %option{:selected => "selected", :value => "3"} Normal
+                  %option{:value => "4"} Difficult
+                  %option{:value => "5"} Extreme
+              .form-group.col-md-2
+                %input#new-game.btn.btn-primary{:type => "button", :value => "Start Game"}/
+        #in-game-menu        
+          %ul#error-messages
+          %input#undo-button.btn.btn-primary.btn-sm{:type => "button", :value => "Undo"}/
+          %input#commit-move-button.btn.btn-primary.btn-sm{:type => "button", :value => "Place Move"}/
+          #current-move
+          #current-turn
+      #board
+        #board-modal

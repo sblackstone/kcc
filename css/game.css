@@ -16,31 +16,28 @@ html, body {
   background-color: #204339;
   width: 85vmin;
   color: #043325; }
+  #sidebar label {
+    padding-right: 15px;
+    color: #fff; }
+  #sidebar .form-group {
+    margin-left: 15px; }
+
+#new-game-menu, #in-game-menu {
+  display: none; }
+
+#board-modal {
+  position: absolute;
+  z-index: 5;
+  width: 85vmin;
+  height: 85vmin;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block; }
 
 #board {
   position: relative;
   width: 85vmin;
   height: 85vmin;
   display: inline-block; }
-
-#modal-container {
-  position: absolute;
-  display: none;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5); }
-
-#modal {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 5vmin;
-  position: absolute;
-  width: 60vmin;
-  height: 30vmin;
-  top: 20vmin;
-  left: 20vmin;
-  border: 1vmin solid rgba(0, 0, 0, 0.8);
-  z-index: 3; }
 
 .square {
   width: 10.625vmin;

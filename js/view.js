@@ -8,42 +8,47 @@ const View = function(model) {
   this.elements.errors = $('#error-messages');
   this.elements.current_move = $('#current-move');
   this.elements.current_turn = $('#current-turn');
-  this.elements.modal_message = $('#modal-message');
-  this.elements.modal_container = $('#modal-container');
+  this.elements.board_modal = $('#board-modal');
+  this.elements.in_game_menu    = $('#in-game-menu');
+  this.elements.new_game_menu    = $('#new-game-menu');
+  
   this.elements.squares = [];
   this.init_squares();
   this.draw();  
 };
 
 View.prototype.draw = function() { 
-  this.hide_modal();
   this.draw_board();
   this.draw_current_move();
   this.draw_last_move();
   this.draw_errors();
   this.draw_turn();
   this.draw_winner();
-  this.draw_modal();
+  this.draw_menu();
 };
 
-View.prototype.draw_modal = function() {
+View.prototype.draw_menu = function() {
   if (!this.model.is_game_started() || (this.model.is_start_of_turn() && this.model.winner() > 0)) {
-    this.show_modal();
+    this.elements.new_game_menu.show();
+    this.elements.in_game_menu.hide();    
+    this.elements.board_modal.show();
+  } else {
+    this.elements.new_game_menu.hide();
+    this.elements.in_game_menu.show();    
+    this.elements.board_modal.hide();
+    
   }
 };
 
 
 View.prototype.draw_winner = function() {
   if (this.model.is_start_of_turn()) {
-    let winner = this.model.winner();
-    if (winner > 0) {
-      if (winner === 1) {
-        this.elements.modal_message.html("Red Wins!");
-      }; 
-      if (winner === 2) {
-        this.elements.modal_message.html("Green Wins!");
-      };
-    }    
+    if (this.model.winner() === 1) {
+      alert("Red Wins!");
+    }; 
+    if (this.model.winner() === 2) {
+      alert("Green Wins!");
+    };
   }
 };
 
@@ -120,19 +125,8 @@ View.prototype.highlight_last_move = function(i) {
   this.elements.squares[i].addClass('highlight-last-move');  
 };
 
-
-View.prototype.show_modal = function() {
-  this.elements.modal_container.show();
-}
-
-View.prototype.hide_modal = function() {
-  this.elements.modal_container.hide();
-}
-
-
 View.prototype.init_squares = function() {
   for (let i = 0; i < 8; i++) {
-    let rank = $('<div>').addClass('rank');
     for (let j = 0; j < 8; j++) {
       let square_number = i*8 + j;
       let square = $('<div>').addClass('square').data("square", square_number);
@@ -142,10 +136,9 @@ View.prototype.init_squares = function() {
       if (this.model.is_court_square(square_number)) {
         square.addClass('court-square');
       }  
-      square.appendTo(rank);      
+      square.appendTo(this.elements.board);      
 
     }
-    rank.appendTo(this.elements.board);
   }  
 };
 
