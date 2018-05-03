@@ -26,12 +26,12 @@ html, body {
   background-color: #000;
 }
 
-#game2 {
+#game {
   padding-top: 1vmin;
   width: #{$board_width}vmin;
   height: 100vmin;
   display: block;
-  margin: auto;
+  margin: 0 auto;
   clear: both;
   > * {
     box-sizing: content-box;
