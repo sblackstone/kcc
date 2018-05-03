@@ -28,3 +28,7 @@ guard :haml, input: 'src/haml', output: 'public' do
 end
 
 guard 'sass', :input => 'src/scss', :output => 'public/css'
+
+watch(%r[src//js/(.+)]) do |m|
+  File.write("public/js/#{ m[1] }", JSMin.minify(File.read(m[0])))
+end
