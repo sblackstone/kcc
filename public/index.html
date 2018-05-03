@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<title>Kcc</title>
+<link href='./css/bootstrap.min.css' rel='stylesheet'>
+<link href='./css/background.css' rel='stylesheet'>
+<link href='./css/game.css' rel='stylesheet'>
+<script src='./js/jquery-3.2.1.slim.min.js'></script>
+<script src='./js/bootstrap.min.js'></script>
+<script src='./js/controller.js'></script>
+<script src='./js/model.js'></script>
+<script src='./js/view.js'></script>
+<script src='./js/move_generator.js'></script>
+</head>
+<body>
+<div id='game'>
+<div id='sidebar'>
+<div id='new-game-menu'>
+<div class='form-inline'>
+<div class='form-row'>
+<div class='form-group'>
+<label>I'll Play</label>
+<select class='form-control' id='human-color'>
+<option value='1'>Red</option>
+<option value='2'>Green</option>
+</select>
+</div>
+<div class='form-group'>
+<label>Difficulty</label>
+<select class='form-control' id='computer-level'>
+<option value='1'>Beginner</option>
+<option selected='selected' value='3'>Normal</option>
+<option value='4'>Difficult</option>
+<option value='5'>Extreme</option>
+</select>
+</div>
+<div class='form-group col-md-2'>
+<input class='btn btn-primary' id='new-game' type='button' value='Start Game'>
+</div>
+</div>
+</div>
+</div>
+<div id='in-game-menu'>
+<ul id='error-messages'></ul>
+<input class='btn btn-primary' id='undo-button' type='button' value='Undo'>
+<input class='btn btn-primary' id='commit-move-button' type='button' value='Place Move'>
+<div id='current-move'></div>
+<div id='current-turn'></div>
+</div>
+</div>
+<div id='board'>
+<div id='board-modal'></div>
+</div>
+</div>
+</body>
+</html>
