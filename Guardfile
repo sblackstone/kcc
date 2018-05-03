@@ -23,12 +23,14 @@
 # notifications: true                send notifictions to Growl/libnotify/Notifu
 # haml_options: { ugly: true }    pass options to the Haml engine
 
+require 'jsmin'
+
 guard :haml, input: 'src/haml', output: 'public' do
   watch(/^.+(\.html\.haml)$/)
 end
 
 guard 'sass', :input => 'src/scss', :output => 'public/css'
 
-watch(%r[src//js/(.+)]) do |m|
+watch(%r[src/js/(.+)]) do |m|
   File.write("public/js/#{ m[1] }", JSMin.minify(File.read(m[0])))
 end
