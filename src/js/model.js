@@ -66,10 +66,10 @@ Model.prototype.heuristic = function(maximizingPlayer) {
   let bad_side  = maximizingPlayer ? this.other_team() : this.turn();
 
   if (this.winner() === good_side) {
-    return(Infinity);
+    return(9999999);
   }
   if (this.winner() === bad_side) {
-    return(-Infinity);
+    return(-9999999);
   }
   
   let score = 0;

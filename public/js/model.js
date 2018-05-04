@@ -3,8 +3,8 @@ const Model=function(){console.log("Initializing Model");this.initialize_state()
 let legal_moves=this.move_generator.legal_moves();for(let i=0;i<legal_moves.length;i++){let move=legal_moves[i];if(move!=last_src){let new_last_src=this.last_uncommitted_dst();this.push_uncommitted_move(move);if(!this.is_first_piece_destination()){this.push_move();yield depth;this.pop_move();}
 yield*this.each_child(depth-1,new_last_src);this.pop_uncommitted_move();}}};Model.prototype.add_to_human_move=function(dst){if(!this.is_human_turn()){alert("Its not your turn");return;}
 let src=this.last_uncommitted_dst();if(this.move_generator.is_legal_piece_move(src,dst)){this.push_uncommitted_move(dst);}else if(this.is_first_piece_destination()&&this.square(dst)===this.turn()){this.pop_uncommitted_move();this.push_uncommitted_move(dst);}else{this.set_error("Not a legal move");}
-this.view.draw();return;};Model.prototype.heuristic=function(maximizingPlayer){let good_side=maximizingPlayer?this.turn():this.other_team();let bad_side=maximizingPlayer?this.other_team():this.turn();if(this.winner()===good_side){return(Infinity);}
-if(this.winner()===bad_side){return(-Infinity);}
+this.view.draw();return;};Model.prototype.heuristic=function(maximizingPlayer){let good_side=maximizingPlayer?this.turn():this.other_team();let bad_side=maximizingPlayer?this.other_team():this.turn();if(this.winner()===good_side){return(9999999);}
+if(this.winner()===bad_side){return(-9999999);}
 let score=0;score+=this._state.square_tracker[good_side];score+=this._state.court_tracker[good_side];score-=this._state.square_tracker[bad_side]*1.5;score-=this._state.court_tracker[bad_side]*1.25;return(score);};Model.prototype.alpha_beta=function(depth,alpha=-Infinity,beta=Infinity,maximizingPlayer=true,track_moves=true){if(track_moves){console.log("Finding move for "+this.turn());}
 if(depth==0||this.winner()>0){return this.heuristic(maximizingPlayer);}
 let v=0;let best=null;if(maximizingPlayer){v=-Infinity;for(let i of this.each_child(5)){if(beta>alpha){let tmp=this.alpha_beta(depth-1,alpha,beta,false,false);if(tmp>v){if(track_moves){best=this.last_committed_move().slice(0);}
