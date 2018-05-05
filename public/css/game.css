@@ -5,13 +5,12 @@ html, body {
   height: 75vmin;
   width: 100vmin;
   display: block;
-  margin: 7.5% auto;
+  margin: 3.75% auto;
   clear: both; }
 
 #sidebar {
   vertical-align: top;
   display: inline-block;
-  background-color: #204339;
   width: 23vmin;
   padding: 1vmin;
   height: 75vmin;
@@ -19,6 +18,7 @@ html, body {
 
 #board {
   position: relative;
+  background: #fafafa;
   width: 75vmin;
   height: 75vmin;
   display: inline-block; }
@@ -62,8 +62,8 @@ html, body {
   display: block; }
 
 .highlight-last-move .internal-square {
-  background-color: rgba(241, 192, 245, 0.5) !important;
-  border-color: #f1c0f5 !important; }
+  background-color: rgba(241, 192, 245, 0.7) !important;
+  border-color: purple !important; }
 
 .highlight .internal-square {
   background-color: rgba(220, 241, 85, 0.5) !important;
