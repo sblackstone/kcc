@@ -2,25 +2,53 @@ html, body {
   background-color: #000; }
 
 #game {
-  padding-top: 1vmin;
-  width: 85vmin;
-  height: 100vmin;
+  height: 75vmin;
+  width: 100vmin;
   display: block;
-  margin: 0 auto;
+  margin: 7.5% auto;
   clear: both; }
-  #game > * {
-    box-sizing: content-box;
-    border: 0.75vmin solid #204339; }
 
 #sidebar {
+  vertical-align: top;
+  display: inline-block;
   background-color: #204339;
-  width: 85vmin;
-  color: #043325; }
-  #sidebar label {
-    padding-right: 15px;
-    color: #fff; }
-  #sidebar .form-group {
-    margin-left: 15px; }
+  width: 23vmin;
+  padding: 1vmin;
+  height: 75vmin;
+  color: #fff; }
+
+#board {
+  position: relative;
+  width: 75vmin;
+  height: 75vmin;
+  display: inline-block; }
+
+.square {
+  width: 12.5%;
+  height: 12.5%;
+  display: inline-block;
+  float: left; }
+
+.internal-square {
+  margin: 0 auto;
+  width: 70%;
+  height: 70%;
+  transform: rotate(45deg);
+  background-color: #cfb986;
+  border: 0.15vmin solid orange;
+  position: relative;
+  margin-top: 15%;
+  font-size: 1.5vmin; }
+
+.piece {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  height: 90%;
+  width: 90%;
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block; }
 
 #new-game-menu, #in-game-menu {
   display: none; }
@@ -28,22 +56,10 @@ html, body {
 #board-modal {
   position: absolute;
   z-index: 5;
-  width: 85vmin;
-  height: 85vmin;
+  width: calc(75vmin);
+  height: calc(75vmin);
   background-color: rgba(0, 0, 0, 0.5);
   display: block; }
-
-#board {
-  position: relative;
-  width: 85vmin;
-  height: 85vmin;
-  display: inline-block; }
-
-.square {
-  width: 10.625vmin;
-  height: 10.625vmin;
-  display: inline-block;
-  float: left; }
 
 .highlight-last-move .internal-square {
   background-color: rgba(241, 192, 245, 0.5) !important;
@@ -56,29 +72,8 @@ html, body {
 .court-square {
   background-color: #204339 !important; }
 
-.internal-square {
-  margin: 0 auto;
-  width: 7.5130095501vmin;
-  height: 7.5130095501vmin;
-  transform: rotate(45deg);
-  background-color: #cfb986;
-  border: 0.15vmin solid orange;
-  position: relative;
-  margin-top: 1.5559952249vmin;
-  font-size: 1.5vmin; }
-
 .rank:last-child .square:last-child {
   clear: right; }
-
-.piece {
-  position: absolute;
-  top: 0.751300955vmin;
-  left: 0.751300955vmin;
-  height: 6.0104076401vmin;
-  width: 6.0104076401vmin;
-  background-color: transparent;
-  border-radius: 50%;
-  display: inline-block; }
 
 .red-piece .piece {
   background-color: #7b3e20; }

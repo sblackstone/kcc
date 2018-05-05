@@ -1,56 +1,71 @@
-
-
-// How does SASS not support this already?  Newtons Method borrowed from http://www.antimath.info/css/sass-sqrt-function/ and Newton.
-@function sqrt($r) {
-  $x0: 1;
-  $x1: $x0;
- 
-  @for $i from 1 through 10 {
-    $x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0);
-    $x0: $x1;
-  }
- 
-  @return $x1;
-}
-
-
-
-$board_width: 85; // VMin..
-$square_width: $board_width / 8.0; // 8 squares.
-$internal_square_width: sqrt($square_width*$square_width / 2.0); // pythagorean...
-$internal_square_margin_top: ($square_width - $internal_square_width) / 2.0; // Adjust square
-$piece_size: $internal_square_width * 0.80;
-$piece_padding: ($internal_square_width - $piece_size) / 2.0;
+$board_width_vmin: 75;
 
 html, body {
   background-color: #000;
+  
 }
 
+
 #game {
-  padding-top: 1vmin;
-  width: #{$board_width}vmin;
-  height: 100vmin;
+  height: #{$board_width_vmin}vmin;  
+  width: 100vmin;
   display: block;
-  margin: 0 auto;
+  margin: 7.5% auto;
   clear: both;
-  > * {
-    box-sizing: content-box;
-    border: 0.75vmin solid rgb(32,67,57);    
-  }
 }
 
 #sidebar {
+  vertical-align: top;
+  display: inline-block;
   background-color: rgb(32,67,57);
-  width: #{$board_width}vmin;  
-  color: #043325;
-  label {
-    padding-right: 15px;
-    color: #fff;
-  }
-  .form-group {
-    margin-left: 15px;
-  }
+  width: 23vmin;
+  padding: 1vmin;
+  height: #{$board_width_vmin}vmin;  
+  color: #fff;
 }
+
+#board {
+  position: relative;
+  width: #{$board_width_vmin}vmin;  
+  height: #{$board_width_vmin}vmin;  
+  display: inline-block;
+}
+
+.square {
+  width: 12.5%;
+  height: 12.5%;
+  display: inline-block;
+  float: left;
+}
+
+
+.internal-square {
+  //display: none !important;
+  margin: 0 auto;
+  width: 70%; 
+  height: 70%;
+  transform: rotate(45deg);
+  background-color: rgb(207,185, 134);
+
+  border: 0.15vmin solid orange;
+  position: relative;
+  margin-top: 15%;
+  font-size: 1.5vmin;
+  
+}
+
+
+.piece {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  height: 90%;
+  width: 90%;
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 
 #new-game-menu, #in-game-menu {
   display: none;
@@ -59,25 +74,15 @@ html, body {
 #board-modal {
   position: absolute;
   z-index: 5;
-  width: 85vmin;
-  height: 85vmin;
+  width: calc(#{$board_width_vmin}vmin);
+  height: calc(#{$board_width_vmin}vmin);
   background-color: rgba(0,0,0,0.5);
   display: block;
 }
 
-#board {
-  position: relative;
-  width: #{$board_width}vmin;  
-  height: #{$board_width}vmin;  
-  display: inline-block;
-}
 
-.square {
-  width: #{$square_width}vmin;
-  height: #{$square_width}vmin;
-  display: inline-block;
-  float: left;
-}
+
+
 
 .highlight-last-move .internal-square {
   background-color: rgba(241, 192, 245, 0.5) !important;
@@ -93,20 +98,7 @@ html, body {
   background-color: rgb(32,67,57) !important;
 }
 
-.internal-square {
-  //display: none !important;
-  margin: 0 auto;
-  width: #{$internal_square_width}vmin; 
-  height: #{$internal_square_width}vmin;
-  transform: rotate(45deg);
-  background-color: rgb(207,185, 134);
 
-  border: 0.15vmin solid orange;
-  position: relative;
-  margin-top: #{$internal_square_margin_top}vmin; 
-  font-size: 1.5vmin;
-  
-}
 
 .rank:last-child {
   .square:last-child {
@@ -114,16 +106,7 @@ html, body {
   };
 };
 
-.piece {
-  position: absolute;
-  top: #{$piece_padding}vmin;
-  left: #{$piece_padding}vmin;
-  height: #{$piece_size}vmin;
-  width: #{$piece_size}vmin;
-  background-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-}
+
 
 
 .red-piece {
