@@ -137,9 +137,14 @@ View.prototype.init_squares = function() {
         square.addClass('court-square');
       }  
       square.appendTo(this.elements.board);      
-
     }
-  }  
+  }
+  this.elements.squares[18].css("border-radius", "10px 0 0 0");
+  this.elements.squares[21].css("border-radius", "0 10px 0 0");
+  this.elements.squares[42].css("border-radius", "0 0 0 10px");
+  this.elements.squares[45].css("border-radius", "0 0 10px 0");
+
+
 };
 
 

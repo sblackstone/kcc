@@ -5,6 +5,7 @@
 <title>Kcc</title>
 <link href='./css/bootstrap.min.css' rel='stylesheet'>
 <link href='./css/game.css' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
 <script src='./js/jquery-3.2.1.slim.min.js'></script>
 <script src='./js/bootstrap.min.js'></script>
 <script src='./js/controller.js'></script>
@@ -14,7 +15,7 @@
 </head>
 <body><div id='game'><div id='board'><div id='board-modal'></div></div>
 <div id='sidebar'>
-<h4>Game Name</h4>
+<h4>SuperCheckers</h4>
 <div id='new-game-menu'>
 <div class='form-not-inline'>
 <div class='form-row'>
@@ -42,8 +43,13 @@
 </div>
 <div id='in-game-menu'><ul id='error-messages'></ul>
 <input class='btn btn-primary' id='undo-button' type='button' value='Undo'>
-<input class='btn btn-primary' id='commit-move-button' type='button' value='Place Move'>
+<input class='btn btn-primary' id='commit-move-button' type='button' value='Make Play'>
 <div id='current-move'></div>
 <div id='current-turn'></div></div>
+<ul id='instructions'>
+<li>You can jump your own checkers</li>
+<li>No jumping on your first move</li>
+<li>If you do not have a checker in the center at the end of your turn, you loose.</li>
+</ul>
 </div></div></body>
 </html>

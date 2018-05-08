@@ -5,6 +5,7 @@
     %title Kcc
     %link{:href => "./css/bootstrap.min.css", :rel => "stylesheet"}/
     %link{:href => "./css/game.css", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Comfortaa", :rel => "stylesheet"}/
     %script{:src => "./js/jquery-3.2.1.slim.min.js"}
     %script{:src => "./js/bootstrap.min.js"}
     %script{:src => "./js/controller.js"}
@@ -16,7 +17,7 @@
       #board<
         #board-modal<
       #sidebar
-        %h4 Game Name
+        %h4 SuperCheckers
         #new-game-menu
           .form-not-inline
             .form-row
@@ -37,6 +38,11 @@
         #in-game-menu<    
           %ul#error-messages
           %input#undo-button.btn.btn-primary{:type => "button", :value => "Undo"}/
-          %input#commit-move-button.btn.btn-primary{:type => "button", :value => "Place Move"}/
+          %input#commit-move-button.btn.btn-primary{:type => "button", :value => "Make Play"}/
           #current-move
           #current-turn
+        %ul#instructions
+          %li You can jump your own checkers
+          %li No jumping on your first move
+          %li If you do not have a checker in the center at the end of your turn, you loose.
+          
