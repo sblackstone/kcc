@@ -26,9 +26,9 @@ html, body {
   position: relative;
   width: #{$board_width_vmin}vmin;  
   height: #{$board_width_vmin}vmin;  
-  border: 5px solid #404040;
+  border: 1vmin solid #404040;
   padding: 0.5vmin;
-  border-radius: 50px;
+  border-radius: 25px;
   display: inline-block;
 }
 
@@ -59,6 +59,7 @@ html, body {
   list-style-type: none;
   padding-left: 0;
   margin-top: 3vmin;
+  text-align: justify   ;
   li {
     margin-bottom: 3vmin;
   }
@@ -87,11 +88,26 @@ html, body {
   color: rgb(0,17,12);
 }
 
+.center-top-left {
+  border-radius: 2.5vmin 0 0 0;
+}
+
+.center-top-right {
+  border-radius: 0 2.5vmin 0 0 ;
+}
+
+.center-bottom-left {
+  border-radius: 0 0 2.5vmin 0;  
+}
+
+.center-bottom-right {
+  border-radius: 0 0 0 2.5vmin;  
+}
 
 
 .square {
   width: 12.5%;
-  height: 12.5%;
+  height: 12.5%;    
   display: inline-block;
   float: left;
 }
@@ -101,6 +117,7 @@ html, body {
   margin: 0 auto;
   width: 70%; 
   height: 70%;
+  //border-radius: 5px;
   transform: rotate(45deg);
   background: radial-gradient(#000 0%, #45484d 95%, #000, 100%);
   //background-color: rgb(207,185, 134);
@@ -114,22 +131,20 @@ html, body {
 
 .piece {
   position: absolute;
-  top: 5%;
-  left: 5%;
-  height: 90%;
-  width: 90%;
+  top: 7.5%;
+  left: 7.5%;
+  height: 85%;
+  width: 85%;
   background-color: transparent;
   border-radius: 50%;
   display: inline-block;
 }
 
 .highlight-last-move .internal-square {
-  background-color: rgba(241, 192, 245, 0.7) !important;
   border-color: purple !important;
 }
 
 .highlight .internal-square {
-  background-color: rgba(220, 241, 85, 0.7) !important;
   border-color: yellow !important;
 }
 

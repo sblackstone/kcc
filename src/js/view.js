@@ -139,11 +139,17 @@ View.prototype.init_squares = function() {
       square.appendTo(this.elements.board);      
     }
   }
-  this.elements.squares[18].css("border-radius", "10px 0 0 0");
-  this.elements.squares[21].css("border-radius", "0 10px 0 0");
-  this.elements.squares[42].css("border-radius", "0 0 0 10px");
-  this.elements.squares[45].css("border-radius", "0 0 10px 0");
-
+  
+  this.elements.squares[18].addClass('center-top-left');
+  this.elements.squares[21].addClass('center-top-right');
+  this.elements.squares[45].addClass('center-bottom-left');
+  this.elements.squares[42].addClass('center-bottom-right');
+  
+  [18, 19 ,20 ,21].forEach( i => { this.elements.squares[i].addClass('center-edge-top');    } );
+  [18, 26 ,34 ,42].forEach( i => { this.elements.squares[i].addClass('center-edge-left');   } );
+  [21, 29 ,37 ,45].forEach( i => { this.elements.squares[i].addClass('center-edge-right');  } );
+  [42, 43 ,44 ,45].forEach( i => { this.elements.squares[i].addClass('center-edge-bottom'); } );
+  
 
 };
 
