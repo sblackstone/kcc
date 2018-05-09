@@ -8,15 +8,13 @@ html, body {
   margin: 3.75% auto;
   clear: both; }
 
-#sidebar {
-  vertical-align: top;
-  display: inline-block;
-  width: 23vmin;
-  padding: 1vmin 1vmin 1vmin 2vmin;
-  height: 74vmin;
-  color: #fff; }
-  #sidebar button {
-    width: 100% !important; }
+#board-modal {
+  position: absolute;
+  z-index: 5;
+  width: calc(74vmin);
+  height: calc(74vmin);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none !important; }
 
 #board {
   position: relative;
@@ -26,6 +24,48 @@ html, body {
   padding: 0.5vmin;
   border-radius: 50px;
   display: inline-block; }
+
+#sidebar {
+  vertical-align: top;
+  display: inline-block;
+  width: 23vmin;
+  padding: 1vmin 1vmin 1vmin 2vmin;
+  height: 74vmin;
+  color: #fff; }
+  #sidebar button {
+    width: 100% !important; }
+  #sidebar h4 {
+    font-family: 'Baloo Bhaina'; }
+
+#new-game-menu, #in-game-menu {
+  display: none; }
+
+#instructions {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.0rem;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 3vmin; }
+  #instructions li {
+    margin-bottom: 3vmin; }
+
+#current-turn {
+  display: none; }
+
+#current-turn.red {
+  color: red; }
+
+#current-turn.green {
+  color: green; }
+
+#current-move {
+  color: #fff;
+  display: none; }
+
+#error-messages {
+  display: none;
+  font-weight: bold;
+  color: #00110c; }
 
 .square {
   width: 12.5%;
@@ -54,26 +94,6 @@ html, body {
   border-radius: 50%;
   display: inline-block; }
 
-#new-game-menu, #in-game-menu {
-  display: none; }
-
-#board-modal {
-  position: absolute;
-  z-index: 5;
-  width: calc(74vmin);
-  height: calc(74vmin);
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none !important; }
-
-#instructions {
-  font-family: 'Comfortaa', cursive;
-  font-size: 1.0rem;
-  list-style-type: none;
-  padding-left: 0;
-  margin-top: 3vmin; }
-  #instructions li {
-    margin-bottom: 3vmin; }
-
 .highlight-last-move .internal-square {
   background-color: rgba(241, 192, 245, 0.7) !important;
   border-color: purple !important; }
@@ -95,21 +115,3 @@ html, body {
 
 .green-piece .piece {
   background-color: #2b3b35; }
-
-#current-turn {
-  display: none; }
-
-#current-turn.red {
-  color: red; }
-
-#current-turn.green {
-  color: green; }
-
-#current-move {
-  color: #fff;
-  display: none; }
-
-#error-messages {
-  display: none;
-  font-weight: bold;
-  color: #00110c; }

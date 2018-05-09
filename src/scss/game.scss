@@ -13,16 +13,13 @@ html, body {
   clear: both;
 }
 
-#sidebar {
-  button {
-    width: 100% !important;
-  }
-  vertical-align: top;
-  display: inline-block;
-  width: 23vmin;
-  padding: 1vmin 1vmin 1vmin 2vmin;
-  height: #{$board_width_vmin}vmin;  
-  color: #fff;
+#board-modal {
+  position: absolute;
+  z-index: 5;
+  width: calc(#{$board_width_vmin}vmin);
+  height: calc(#{$board_width_vmin}vmin);
+  background-color: rgba(0,0,0,0.5);
+  display: none !important;
 }
 
 #board {
@@ -35,13 +32,69 @@ html, body {
   display: inline-block;
 }
 
+#sidebar {
+  button {
+    width: 100% !important;
+  }
+  vertical-align: top;
+  display: inline-block;
+  width: 23vmin;
+  padding: 1vmin 1vmin 1vmin 2vmin;
+  height: #{$board_width_vmin}vmin;  
+  color: #fff;
+  h4 {
+    font-family: 'Baloo Bhaina';
+  }
+}
+
+#new-game-menu, #in-game-menu {
+  display: none;
+}
+
+
+
+#instructions {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.0rem;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 3vmin;
+  li {
+    margin-bottom: 3vmin;
+  }
+}
+
+#current-turn {
+  display: none;
+}
+
+#current-turn.red {
+  color: red;
+}
+
+#current-turn.green {
+  color: green;
+}
+
+#current-move {
+  color: #fff;
+  display: none;
+}
+
+#error-messages {
+  display: none;
+  font-weight: bold;
+  color: rgb(0,17,12);
+}
+
+
+
 .square {
   width: 12.5%;
   height: 12.5%;
   display: inline-block;
   float: left;
 }
-
 
 .internal-square {
   //display: none !important;
@@ -59,7 +112,6 @@ html, body {
   
 }
 
-
 .piece {
   position: absolute;
   top: 5%;
@@ -70,34 +122,6 @@ html, body {
   border-radius: 50%;
   display: inline-block;
 }
-
-
-#new-game-menu, #in-game-menu {
-  display: none;
-}
-
-#board-modal {
-  position: absolute;
-  z-index: 5;
-  width: calc(#{$board_width_vmin}vmin);
-  height: calc(#{$board_width_vmin}vmin);
-  background-color: rgba(0,0,0,0.5);
-  display: none !important;
-}
-
-
-#instructions {
-  font-family: 'Comfortaa', cursive;
-  font-size: 1.0rem;
-  list-style-type: none;
-  padding-left: 0;
-  margin-top: 3vmin;
-  li {
-    margin-bottom: 3vmin;
-  }
-}
-
-
 
 .highlight-last-move .internal-square {
   background-color: rgba(241, 192, 245, 0.7) !important;
@@ -115,7 +139,6 @@ html, body {
     background-color: #000;
   }
 }
-
 
 
 .rank:last-child {
@@ -141,25 +164,4 @@ html, body {
 };
 
 
-#current-turn {
-  display: none;
-}
 
-#current-turn.red {
-  color: red;
-}
-
-#current-turn.green {
-  color: green;
-}
-
-#current-move {
-  color: #fff;
-  display: none;
-}
-
-#error-messages {
-  display: none;
-  font-weight: bold;
-  color: rgb(0,17,12);
-}
