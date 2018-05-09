@@ -16,10 +16,11 @@ html, body {
 #board-modal {
   position: absolute;
   z-index: 5;
-  width: calc(#{$board_width_vmin}vmin);
-  height: calc(#{$board_width_vmin}vmin);
+  top: -1vmin;
+  left: -1vmin;
+  width: #{$board_width_vmin}vmin;
+  height: #{$board_width_vmin}vmin;
   background-color: rgba(0,0,0,0.5);
-  display: none !important;
 }
 
 #board {

@@ -11,10 +11,11 @@ html, body {
 #board-modal {
   position: absolute;
   z-index: 5;
-  width: calc(74vmin);
-  height: calc(74vmin);
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none !important; }
+  top: -1vmin;
+  left: -1vmin;
+  width: 74vmin;
+  height: 74vmin;
+  background-color: rgba(0, 0, 0, 0.5); }
 
 #board {
   position: relative;
