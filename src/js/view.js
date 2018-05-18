@@ -11,6 +11,7 @@ const View = function(model) {
   this.elements.board_modal = $('#board-modal');
   this.elements.in_game_menu    = $('#in-game-menu');
   this.elements.new_game_menu    = $('#new-game-menu');
+  this.elements.winner = $('#winner');
   
   this.elements.squares = [];
   this.init_squares();
@@ -42,12 +43,15 @@ View.prototype.draw_menu = function() {
 
 
 View.prototype.draw_winner = function() {
+  this.elements.winner.removeClass("red green");
+  
   if (this.model.is_start_of_turn()) {
     if (this.model.winner() === 1) {
+      this.elements.winner.html("Red Wins!").addClass("red");
       setTimeout(function() { alert('Red Wins'); }, 25);
     }; 
     if (this.model.winner() === 2) {
-      setTimeout(function() { alert('Green Wins'); }, 25);
+      this.elements.winner.html("Green Wins!").addClass("green");
     };
   }
 };
