@@ -15,41 +15,31 @@
 </head>
 <body><div id='game'><div id='header'>
 <h4>SuperCheckers</h4>
-</div>
-<div id='board'><div id='board-modal'></div></div>
-<div id='sidebar'>
-<h6 id='winner'></h6>
 <div id='new-game-menu'>
-<div class='form-not-inline'>
-<div class='form-row'>
-<div class='form-group col-xs-6'>
+<h6 id='winner'></h6>
 <label>I'll Play</label>
-<select class='form-control' id='human-color'>
+<select class='form-control form-control-sm' id='human-color'>
 <option value='1'>Red</option>
 <option value='2'>Green</option>
 </select>
-</div>
-<div class='form-group col-xs-6'>
 <label>Difficulty</label>
-<select class='form-control' id='computer-level'>
+<select class='form-control form-control-sm' id='computer-level'>
 <option value='1'>Beginner</option>
 <option selected='selected' value='3'>Normal</option>
 <option value='4'>Difficult</option>
 <option value='5'>Extreme</option>
 </select>
-</div>
-<div class='form-group col-md-2'>
-<input class='btn btn-primary' id='new-game' type='button' value='Play'>
-</div>
-</div>
-</div>
+<input class='btn btn-primary btn-sm' id='new-game' type='button' value='Play'>
 </div>
 <div id='in-game-menu'><ul id='error-messages'></ul>
-<input class='btn btn-primary' id='undo-button' type='button' value='Undo'>
-<input class='btn btn-primary' id='commit-move-button' type='button' value='Make Play'>
+<input class='btn btn-primary btn-sm' id='undo-button' type='button' value='Undo'>
+<input class='btn btn-primary btn-sm' id='commit-move-button' type='button' value='Make Play'>
 <div id='current-move'></div>
 <div id='current-turn'></div></div>
-<ul id='instructions'>
+</div>
+<div id='board'><div id='board-modal'></div></div>
+<div id='instructions'>
+<ul>
 <li>If you do not have a piece in the center at the end of a turn, you loose.</li>
 <li>You can jump your own pieces</li>
 <li>No jumping on your first move</li>

@@ -2,7 +2,7 @@ html, body {
   background: #000; }
 
 #game {
-  height: 74vmin;
+  height: 98vmin;
   width: 100vmin;
   display: block;
   margin: 3.75% auto;
@@ -13,35 +13,48 @@ html, body {
   z-index: 5;
   top: -1vmin;
   left: -1vmin;
-  width: 74vmin;
-  height: 74vmin;
+  width: 98vmin;
+  height: 98vmin;
   background-color: rgba(0, 0, 0, 0.5); }
 
 #board {
   position: relative;
-  width: 74vmin;
-  height: 74vmin;
+  width: 98vmin;
+  height: 98vmin;
   border: 1vmin solid #404040;
   padding: 0.5vmin;
   border-radius: 25px;
   display: inline-block; }
 
 #sidebar {
+  display: none;
   vertical-align: top;
   display: inline-block;
   width: 23vmin;
   padding: 1vmin 1vmin 1vmin 2vmin;
-  height: 74vmin;
+  height: 98vmin;
   color: #fff; }
   #sidebar button {
     width: 100% !important; }
 
 h4 {
   font-family: 'Baloo Bhaina';
+  color: #fff;
+  float: left;
+  vertical-align: bottom; }
+
+#header {
+  width: 98vmin;
   color: #fff; }
 
 #new-game-menu, #in-game-menu {
+  float: right;
+  width: 70%;
+  text-align: right;
   display: none; }
+  #new-game-menu select, #in-game-menu select {
+    display: inline-block;
+    width: 20%; }
 
 #instructions {
   font-family: 'Comfortaa', cursive;
@@ -51,6 +64,7 @@ h4 {
   margin-top: 3vmin;
   text-align: justify; }
   #instructions li {
+    color: #fff;
     margin-bottom: 3vmin; }
 
 #current-turn {
@@ -112,7 +126,7 @@ h4 {
   width: 70%;
   height: 70%;
   transform: rotate(45deg);
-  background-color: rgba(40, 40, 40, 0.5);
+  background-color: #191c17;
   border: 0.15vmin solid #404040;
   position: relative;
   margin-top: 15%;
@@ -135,7 +149,7 @@ h4 {
   border-color: yellow !important; }
 
 .court-square {
-  background-color: #2b3b35 !important; }
+  background-color: #191c17 !important; }
   .court-square .internal-square {
     background-color: #000; }
 

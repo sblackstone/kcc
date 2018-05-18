@@ -16,34 +16,35 @@
     #game<
       #header
         %h4 SuperCheckers
-      #board<
-        #board-modal<
-      #sidebar
-        %h6#winner
+
         #new-game-menu
-          .form-not-inline
-            .form-row
-              .form-group.col-xs-6
-                %label I'll Play
-                %select#human-color.form-control
-                  %option{:value => "1"} Red
-                  %option{:value => "2"} Green
-              .form-group.col-xs-6
-                %label Difficulty
-                %select#computer-level.form-control
-                  %option{:value => "1"} Beginner
-                  %option{:selected => "selected", :value => "3"} Normal
-                  %option{:value => "4"} Difficult
-                  %option{:value => "5"} Extreme
-              .form-group.col-md-2
-                %input#new-game.btn.btn-primary{:type => "button", :value => "Play"}
+          %h6#winner
+          %label I'll Play
+          %select.form-control.form-control-sm#human-color
+            %option{:value => "1"} Red
+            %option{:value => "2"} Green
+          %label Difficulty
+          %select.form-control.form-control-sm#computer-level
+            %option{:value => "1"} Beginner
+            %option{:selected => "selected", :value => "3"} Normal
+            %option{:value => "4"} Difficult
+            %option{:value => "5"} Extreme
+          %input#new-game.btn.btn-primary.btn-sm{:type => "button", :value => "Play"}
+
         #in-game-menu<    
           %ul#error-messages
-          %input#undo-button.btn.btn-primary{:type => "button", :value => "Undo"}
-          %input#commit-move-button.btn.btn-primary{:type => "button", :value => "Make Play"}
+          %input#undo-button.btn.btn-primary.btn-sm{:type => "button", :value => "Undo"}
+          %input#commit-move-button.btn.btn-primary.btn-sm{:type => "button", :value => "Make Play"}
           #current-move
           #current-turn
-        %ul#instructions
+
+
+
+
+      #board<
+        #board-modal<
+      #instructions
+        %ul
           %li If you do not have a piece in the center at the end of a turn, you loose.
           %li You can jump your own pieces
           %li No jumping on your first move
