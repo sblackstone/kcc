@@ -43,9 +43,11 @@ html, body {
   padding: 1vmin 1vmin 1vmin 2vmin;
   height: #{$board_width_vmin}vmin;  
   color: #fff;
-  h4 {
-    font-family: 'Baloo Bhaina';
-  }
+}
+
+h4 {
+  font-family: 'Baloo Bhaina';
+  color: #fff;
 }
 
 #new-game-menu, #in-game-menu {

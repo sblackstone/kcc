@@ -35,8 +35,10 @@ html, body {
   color: #fff; }
   #sidebar button {
     width: 100% !important; }
-  #sidebar h4 {
-    font-family: 'Baloo Bhaina'; }
+
+h4 {
+  font-family: 'Baloo Bhaina';
+  color: #fff; }
 
 #new-game-menu, #in-game-menu {
   display: none; }
