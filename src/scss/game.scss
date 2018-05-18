@@ -106,6 +106,24 @@ html, body {
 }
 
 
+
+.center-edge-left {
+  border-left: 1px solid #404040;
+}
+
+.center-edge-top {
+  border-top: 1px solid #404040;
+}
+
+.center-edge-right {
+  border-right: 1px solid #404040;
+}
+
+.center-edge-bottom {
+  border-bottom: 1px solid #404040;
+}
+
+
 .square {
   width: 12.5%;
   height: 12.5%;    
@@ -120,7 +138,7 @@ html, body {
   height: 70%;
   //border-radius: 5px;
   transform: rotate(45deg);
-  background: radial-gradient(#000 0%, #45484d 95%, #000, 100%);
+  background-color: rgba(40,40,40, 0.5);
   //background-color: rgb(207,185, 134);
 
   border: 0.15vmin solid #404040;
@@ -150,7 +168,7 @@ html, body {
 }
 
 .court-square {
-  background-color: rgb(15,15,15) !important;
+  background-color: rgb(43,59,53) !important;
   .internal-square {
     background-color: #000;
   }
