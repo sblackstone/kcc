@@ -1,4 +1,4 @@
-$board_width_vmin: 90;
+$board_width_vmin: 75;
 
 html, body {
   background: #000;  
@@ -7,7 +7,7 @@ html, body {
 
 #game {
   height: #{$board_width_vmin}vmin;  
-  width: 100vmin;
+  width: #{$board_width_vmin}vmin;
   display: block;
   margin: 3.75% auto;
   clear: both;
