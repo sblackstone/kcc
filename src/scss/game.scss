@@ -136,19 +136,19 @@ h4 {
 
 
 .center-edge-left {
-  border-left: 1px solid #404040;
+  border-left: 1px solid #aaa;
 }
 
 .center-edge-top {
-  border-top: 1px solid #404040;
+  border-top: 1px solid #aaa;
 }
 
 .center-edge-right {
-  border-right: 1px solid #404040;
+  border-right: 1px solid #aaa;
 }
 
 .center-edge-bottom {
-  border-bottom: 1px solid #404040;
+  border-bottom: 1px solid #aaa;
 }
 
 
@@ -157,6 +157,7 @@ h4 {
   height: 12.5%;    
   display: inline-block;
   float: left;
+  background-color: #000;
 }
 
 .internal-square {
@@ -166,7 +167,8 @@ h4 {
   height: 70%;
   //border-radius: 5px;
   transform: rotate(45deg);
-  background-color: #191c17;
+  background-color: #222;
+  //background-color: #191c17;
   //background-color: rgb(207,185, 134);
 
   border: 0.15vmin solid #404040;
@@ -196,10 +198,7 @@ h4 {
 }
 
 .court-square {
-  background-color: #191c17 !important;
-  .internal-square {
-    background-color: #000;
-  }
+  background-color: #000 !important;
 }
 
 
